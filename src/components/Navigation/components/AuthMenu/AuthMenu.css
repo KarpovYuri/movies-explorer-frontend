@@ -1,0 +1,51 @@
+.auth-menu {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.auth-menu__link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 30px;
+  transition: opacity 0.25s;
+}
+
+.auth-menu__link:hover {
+  opacity: 0.6;
+}
+
+.auth-menu__button {
+  width: 76px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  background-color: #3ddc84;
+  border-radius: 3px;
+  transition: opacity 0.25s;
+}
+
+.auth-menu__button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 320px) {
+  .auth-menu {
+    font-size: 10px;
+  }
+
+  .auth-menu__link {
+    margin-right: 14px;
+  }
+
+  .auth-menu__button {
+    width: 54px;
+    height: 26px;
+  }
+}
