@@ -51,11 +51,6 @@
   text-decoration: none;
   color: #fff;
   letter-spacing: normal;
-  transition: opacity 0.25s;
-}
-
-.about-me__social-link:hover {
-  opacity: 0.6;
 }
 
 .myPhoto {

@@ -4,7 +4,7 @@
 
 .portfolio__title {
   margin: 0;
-  color: #8b8b8b;
+  color: var(--main-color);
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
@@ -24,11 +24,6 @@
   justify-content: space-between;
   font-weight: 400;
   font-size: 30px;
-  transition: opacity 0.25s;
-}
-
-.portfolio__link:hover {
-  opacity: 0.6;
 }
 
 .portfolio__link-title {
@@ -54,10 +49,6 @@
 @media screen and (max-width: 576px) {
   .portfolio {
     margin-top: 69px;
-  }
-
-  .portfolio__title {
-    color: #a0a0a0;
   }
 
   .portfolio__links {

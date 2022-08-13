@@ -6,7 +6,7 @@ import myPhoto from '../../../../images/my-photo.jpg';
 function AboutMe() {
   return (
     <section className='about-me' id='about-me'>
-      <h1 className='title'>Студент</h1>
+      <h2 className='title'>Студент</h2>
       <hr className='line'></hr>
       <div className='about-me__container'>
         <div className='about-me__wrapper'>
@@ -22,7 +22,7 @@ function AboutMe() {
           <ul className='about-me__social-links'>
             <li>
               <a
-                className='about-me__social-link'
+                className='about-me__social-link hover'
                 target='_blank'
                 href='https://facebook.com'
                 rel="noreferrer"
@@ -32,7 +32,7 @@ function AboutMe() {
             </li>
             <li>
               <a
-                className='about-me__social-link'
+                className='about-me__social-link hover'
                 target='_blank'
                 href='https://github.com/Yurick78'
                 rel="noreferrer"

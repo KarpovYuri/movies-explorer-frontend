@@ -7,18 +7,12 @@
 
 .line_place_portfolio {
   margin: 9px 0 20px;
-  background-color: var(--fourth-color);
+  background-color: var(--third-color);
 }
 
 .line_place_footer {
   margin: 20px 0 0;
-  background-color: var(--fourth-color);
-}
-
-@media (max-width: 768px) {
-  .line_place_portfolio {
-    background-color: var(--third-color);
-  }
+  background-color: var(--third-color);
 }
 
 @media (max-width: 576px) {

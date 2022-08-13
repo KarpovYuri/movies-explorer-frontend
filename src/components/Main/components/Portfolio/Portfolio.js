@@ -7,7 +7,7 @@ function Portfolio() {
       <ul className='portfolio__links'>
         <li>
           <a
-            className='portfolio__link'
+            className='portfolio__link hover'
             target='_blank'
             href='https://github.com/Yurick78/how-to-learn'
             rel="noreferrer"
@@ -19,7 +19,7 @@ function Portfolio() {
         </li>
         <li>
           <a
-            className='portfolio__link'
+            className='portfolio__link hover'
             target='_blank'
             href='https://github.com/Yurick78/russian-travel'
             rel="noreferrer"
@@ -31,7 +31,7 @@ function Portfolio() {
         </li>
         <li>
           <a
-            className='portfolio__link'
+            className='portfolio__link hover'
             target='_blank'
             href='https://github.com/Yurick78/react-mesto-api-full'
             rel="noreferrer"
