@@ -1,8 +1,9 @@
 import './AboutProject.css';
+
 function AboutProject() {
   return (
     <section className='about-project' id='about-project'>
-      <h1 className='title'>О проекте</h1>
+      <h2 className='title'>О проекте</h2>
       <hr className='line'></hr>
       <ul className='description'>
         <li className='description__block'>
@@ -19,11 +20,11 @@ function AboutProject() {
         </li>
       </ul>
       <div className='timeline'>
-        <div className='timeline__block timeline__block_size_20'>
+        <div className='timeline__block timeline__block_place_left'>
           <p className='timeline__duration timeline__duration_color_green'>1 неделя</p>
           <p className='timeline__title'>Back-end</p>
         </div>
-        <div className='timeline__block timeline__block_size_80'>
+        <div className='timeline__block timeline__block_place_right'>
           <p className='timeline__duration timeline__duration_color_grey'>4 недели</p>
           <p className='timeline__title'>Front-end</p>
         </div>
