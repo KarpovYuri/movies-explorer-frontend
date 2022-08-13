@@ -7,14 +7,9 @@
 }
 
 .auth-menu__link {
-  color: #fff;
+  color: var(--text-main-color);
   text-decoration: none;
   margin-right: 30px;
-  transition: opacity 0.25s;
-}
-
-.auth-menu__link:hover {
-  opacity: 0.6;
 }
 
 .auth-menu__button {
@@ -24,18 +19,13 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #000;
+  color: var(--text-second-color);
   text-decoration: none;
-  background-color: #3ddc84;
+  background-color: var(--main-bg-color);
   border-radius: 3px;
-  transition: opacity 0.25s;
 }
 
-.auth-menu__button:hover {
-  opacity: 0.6;
-}
-
-@media (max-width: 320px) {
+@media (max-width: 576px) {
   .auth-menu {
     font-size: 10px;
   }

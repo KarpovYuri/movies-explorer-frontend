@@ -11,11 +11,6 @@
   width: 38px;
   cursor: pointer;
   background-image: url('../../images/logo.svg');
-  transition: opacity 0.25s;
-}
-
-.header__logo:hover {
-  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
@@ -24,7 +19,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 576px) {
   .header {
     padding: 0 14px 0;
   }

@@ -6,7 +6,7 @@ import './Header.css';
 function Header() {
   return (
     <header className='header'>
-      <Link to='/' className='header__logo' />
+      <Link to='/' className='header__logo hover' />
       <Navigation />
     </header>
   );
