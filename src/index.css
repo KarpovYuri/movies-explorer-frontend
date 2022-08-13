@@ -1,7 +1,5 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/font.css);
 
-.root {
-  background-color: #202020;
-}
-
+@import url(./blocks/root/root.css);
+@import url(./blocks/hover/hover.css);

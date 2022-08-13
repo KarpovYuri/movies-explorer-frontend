@@ -1,0 +1,36 @@
+.line {
+  margin: 23px 0 0;
+  height: 1px;
+  border: none;
+  background-color: var(--second-color);
+}
+
+.line_place_portfolio {
+  margin: 9px 0 20px;
+  background-color: var(--fourth-color);
+}
+
+.line_place_footer {
+  margin: 20px 0 0;
+  background-color: var(--fourth-color);
+}
+
+@media (max-width: 768px) {
+  .line_place_portfolio {
+    background-color: var(--third-color);
+  }
+}
+
+@media (max-width: 576px) {
+  .line {
+    margin-top: 28px;
+  }
+
+  .line_place_portfolio {
+    margin-top: 19px;
+  }
+
+  .line_place_footer {
+    margin-top: 21px;
+  }
+}

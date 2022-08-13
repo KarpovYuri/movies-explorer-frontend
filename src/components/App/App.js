@@ -7,6 +7,7 @@ import { Profile } from '../Profile/Profile';
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
+import Footer from '../Footer/Footer';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/signup' component={Register} />
         <Route path='/*' component={ErrorPage} />
       </Routes>
+      <Footer />
     </div>
   );
 };
