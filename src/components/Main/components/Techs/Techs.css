@@ -1,6 +1,6 @@
 .techs {
   padding: 100px 70px;
-  background-color: #272727;
+  background-color: var(--second-bg-color);
 }
 
 .techs__subtitle {
@@ -40,7 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #303030;
+  background-color: var(--third-bg-color);
   border-radius: 10px;
   font-weight: 400;
   font-size: 14px;
@@ -75,7 +75,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 576px) {
   .techs {
     padding: 70px 18px;
   }
@@ -87,7 +87,7 @@
   }
 
   .techs__description {
-    width: 100%;
+    max-width: 292px;
     margin-top: 24px;
     font-size: 11px;
     line-height: 16px;
