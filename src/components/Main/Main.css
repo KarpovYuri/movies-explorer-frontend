@@ -1,0 +1,25 @@
+.title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+}
+
+.line {
+  margin: 23px 0 0;
+  height: 1px;
+  border: none;
+  background-color: #dadada;
+}
+
+@media (max-width: 320px) {
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .line {
+    margin-top: 28px;
+  }
+}
