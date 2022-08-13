@@ -1,4 +1,4 @@
-// import Portfolio from '../Portfolio/Portfolio';
+import Portfolio from '../Portfolio/Portfolio';
 import './AboutMe.css';
 
 import myPhoto from '../../../../images/my-photo.jpg';
@@ -44,7 +44,7 @@ function AboutMe() {
         </div>
         <img className='myPhoto' alt='Моя фотография' src={myPhoto} />
       </div>
-      {/* <Portfolio /> */}
+      <Portfolio />
     </section>
   );
 };

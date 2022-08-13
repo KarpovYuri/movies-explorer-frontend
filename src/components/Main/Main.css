@@ -13,7 +13,18 @@
   background-color: #dadada;
 }
 
-@media (max-width: 320px) {
+.line_place_portfolio {
+  margin: 9px 0 20px;
+  background-color: #424242;
+}
+
+@media (max-width: 768px) {
+  .line_place_portfolio {
+    background-color: #e6e6e6;
+  }
+}
+
+@media (max-width: 576px) {
   .title {
     font-size: 18px;
     line-height: 22px;
@@ -21,5 +32,9 @@
 
   .line {
     margin-top: 28px;
+  }
+
+  .line_place_portfolio {
+    margin-top: 19px;
   }
 }
