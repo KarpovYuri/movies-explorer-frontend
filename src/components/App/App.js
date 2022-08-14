@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import Header from '../Header/Header';
 import Main from '../Main/Main';
 import { Movies } from '../Movies/Movies';
 import { SavedMovies } from '../SavedMovies/SavedMovies';
@@ -7,16 +6,13 @@ import { Profile } from '../Profile/Profile';
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
-import Footer from '../Footer/Footer';
 import './App.css';
 
 function App() {
   return (
     <div className='app'>
-      <Header />
-      <Main />
       <Routes>
-        <Route exact path='/' component={Main} />
+        <Route exact path='/' element={<Main />} />
         <Route path='/movies' component={Movies} />
         <Route path='/saved-movies' component={SavedMovies} />
         <Route path='/profile' component={Profile} />
@@ -24,7 +20,6 @@ function App() {
         <Route path='/signup' component={Register} />
         <Route path='/*' component={ErrorPage} />
       </Routes>
-      <Footer />
     </div>
   );
 };

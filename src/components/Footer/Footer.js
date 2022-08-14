@@ -32,7 +32,7 @@ function Footer() {
             <a
               className='footer__link hover'
               target='_blank'
-              href='https://facebook.com'
+              href='https://www.facebook.com/profile.php?id=100000459328645'
               rel="noreferrer"
             >
               Facebook
