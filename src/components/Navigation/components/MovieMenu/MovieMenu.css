@@ -134,7 +134,7 @@
   }
 }
 
-@media (max-width: 670px) {
+@media (max-width: 576px) {
   .movie-menu {
     width: 320px;
   }

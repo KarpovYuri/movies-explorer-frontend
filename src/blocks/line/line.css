@@ -15,6 +15,18 @@
   background-color: var(--third-color);
 }
 
+.line_place_search {
+  margin: 69px 0 0;
+  background-color: var(--third-color);
+}
+
+@media (max-width: 768px) {
+
+  .line_place_search {
+    margin-top: 109px;
+  }
+}
+
 @media (max-width: 576px) {
   .line {
     margin-top: 28px;
@@ -26,5 +38,9 @@
 
   .line_place_footer {
     margin-top: 21px;
+  }
+
+  .line_place_search {
+    margin-top: 109px;
   }
 }
