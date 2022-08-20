@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
-function Header() {
+function Header({ isLogged }) {
   return (
     <header className='header'>
       <Link to='/' className='header__logo hover' />
-      <Navigation />
+      <Navigation isLogged={isLogged} />
     </header>
   );
 };

@@ -10,7 +10,7 @@ import './Main.css';
 function Main() {
   return (
     <main>
-      <Header />
+      <Header isLogged={false} />
       <Promo />
       <AboutProject />
       <Techs />

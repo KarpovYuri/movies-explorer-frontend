@@ -2,10 +2,9 @@ import { React } from 'react';
 import AuthMenu from './components/AuthMenu/AuthMenu';
 import MovieMenu from './components/MovieMenu/MovieMenu';
 
-function Navigation() {
-  const isLogin = false; // Переделать на level-3
+function Navigation({ isLogged }) {
 
-  return isLogin ? <MovieMenu /> : <AuthMenu />;
+  return isLogged ? <MovieMenu /> : <AuthMenu />;
 };
 
 export default Navigation;
