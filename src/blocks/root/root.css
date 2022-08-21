@@ -4,15 +4,14 @@
   --main-color: #8b8b8b;
   --second-color: #dadada;
   --third-color: #424242;
-  --main-bg-color: #3ddc84;
+  --main-bg-color: #202020;
   --second-bg-color: #272727;
   --third-bg-color: #303030;
-  --fourth-bg-color: #202020;
-
+  --button-main-bg-color: #3ddc84;
   --button-second-bg-color: #4285F4;
   --search-form-bg-color: #2f2f2f;
 }
 
 .root {
-  background-color: var(--fourth-bg-color);
+  background-color: var(--main-bg-color);
 }

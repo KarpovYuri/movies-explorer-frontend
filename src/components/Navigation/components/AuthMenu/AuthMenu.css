@@ -21,7 +21,7 @@
   cursor: pointer;
   color: var(--text-second-color);
   text-decoration: none;
-  background-color: var(--main-bg-color);
+  background-color: var(--button-main-bg-color);
   border-radius: 3px;
 }
 

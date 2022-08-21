@@ -62,7 +62,7 @@
 }
 
 .timeline__duration_color_green {
-  background-color: var(--main-bg-color);
+  background-color: var(--button-main-bg-color);
   color: var(--text-second-color);
 }
 
