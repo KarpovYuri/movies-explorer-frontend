@@ -21,9 +21,9 @@ function MoviesCard({ movie, type }) {
           {
             type === 'all'
               ? saved
-                ? <button type='button' className='movie-card__btn movie-card__btn_type_saved'></button>
-                : <button type='button' className='movie-card__btn movie-card__btn_type_unsaved'></button>
-              : <button type='button' className='movie-card__btn movie-card__btn_type_close'></button>
+                ? <button type='button' className='movie-card__btn movie-card__btn_type_saved  hover-btn'></button>
+                : <button type='button' className='movie-card__btn movie-card__btn_type_unsaved  hover-btn'></button>
+              : <button type='button' className='movie-card__btn movie-card__btn_type_close hover-btn'></button>
           }
         </div>
         <hr className='line line_place_movie'></hr>

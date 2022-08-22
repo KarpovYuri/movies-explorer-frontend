@@ -1,6 +1,13 @@
 .more {
-  min-height: 166px;
   margin: 0 auto;
+}
+
+.more_height_big {
+  min-height: 166px;
+}
+
+.more_height_small {
+  min-height: 140px;
 }
 
 .more__btn {
@@ -17,6 +24,10 @@
   line-height: 15px;
   letter-spacing: normal;
   background-color: var(--search-form-bg-color);
+}
+
+.more__btn_hide {
+  display: none;
 }
 
 @media (max-width: 576px) {

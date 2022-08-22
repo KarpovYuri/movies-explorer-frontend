@@ -19,7 +19,7 @@ function Movies() {
       {isPreloader ? <Preloader /> :
         <>
           <MoviesCardList movies={movies} type='all' />
-          <More />
+          <More isShowMore={true} />
         </>
       }
       <Footer />
