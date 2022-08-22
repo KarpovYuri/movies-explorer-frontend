@@ -48,6 +48,13 @@
   font-size: 18px;
   line-height: 20px;
   color: var(--main-color);
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.search__input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .search__button {

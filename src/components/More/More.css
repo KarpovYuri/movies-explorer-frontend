@@ -1,0 +1,26 @@
+.more {
+  min-height: 166px;
+  margin: 0 auto;
+}
+
+.more__btn {
+  width: 320px;
+  height: 36px;
+  margin-top: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-main-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: normal;
+  background-color: var(--search-form-bg-color);
+}
+
+@media (max-width: 576px) {
+  .more__btn {
+    width: 240px;
+  }
+}

@@ -16,11 +16,11 @@
 }
 
 .movie-menu__mobile_type_hamburger {
-  background-image: url(../../../../images/hamburger-big-icon.svg);
+  background-image: url(../../../images/hamburger-big-icon.svg);
 }
 
 .movie-menu__mobile_type_cross {
-  background-image: url(../../../../images/cross-icon.svg);
+  background-image: url(../../../images/cross-icon.svg);
 }
 
 .movie-menu__dummy {
@@ -62,7 +62,7 @@
   letter-spacing: normal;
   border: 2px solid rgba(170, 170, 170, .2);
   border-radius: 50px;
-  background-image: url(../../../../images/account-btn-icon.svg);
+  background-image: url(../../../images/account-btn-icon.svg);
   background-repeat: no-repeat;
   background-position: 12px center;
 }
@@ -144,7 +144,7 @@
   }
 
   .movie-menu__mobile_type_hamburger {
-    background-image: url(../../../../images/hamburger-small-icon.svg);
+    background-image: url(../../../images/hamburger-small-icon.svg);
   }
 
   .movie-menu__links {

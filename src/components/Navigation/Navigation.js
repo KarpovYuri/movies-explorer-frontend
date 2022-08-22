@@ -1,6 +1,6 @@
 import { React } from 'react';
-import AuthMenu from './components/AuthMenu/AuthMenu';
-import MovieMenu from './components/MovieMenu/MovieMenu';
+import AuthMenu from './AuthMenu/AuthMenu';
+import MovieMenu from './MovieMenu/MovieMenu';
 
 function Navigation({ isLogged }) {
 

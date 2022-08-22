@@ -20,6 +20,11 @@
   background-color: var(--third-color);
 }
 
+.line_place_movie {
+  margin: 13px 0 0;
+  background-color: var(--third-color);
+}
+
 @media (max-width: 768px) {
 
   .line_place_search {
@@ -42,5 +47,9 @@
 
   .line_place_search {
     margin-top: 109px;
+  }
+
+  .line_place_movie {
+    margin-top: 13px;
   }
 }
