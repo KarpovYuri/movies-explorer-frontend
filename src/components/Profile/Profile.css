@@ -48,6 +48,10 @@
   outline: none;
 }
 
+.profile__input:focus {
+  color: var(--button-second-bg-color);
+}
+
 .profile__input::placeholder {
   font-size: 11px;
   line-height: 13px;

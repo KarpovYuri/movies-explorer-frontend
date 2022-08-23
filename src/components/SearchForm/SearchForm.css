@@ -12,6 +12,11 @@
   padding: 0 30px 0 19px;
 }
 
+.search__form:focus-within {
+  outline: 2px solid var(--button-second-bg-color);
+}
+
+
 .search__find-icon {
   width: 34px;
   height: 34px;

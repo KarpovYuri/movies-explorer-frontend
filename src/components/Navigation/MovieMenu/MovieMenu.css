@@ -20,6 +20,9 @@
 }
 
 .movie-menu__mobile_type_cross {
+  position: fixed;
+  top: 16px;
+  right: 30px;
   background-image: url(../../../images/cross-icon.svg);
 }
 
@@ -145,6 +148,10 @@
 
   .movie-menu__mobile_type_hamburger {
     background-image: url(../../../images/hamburger-small-icon.svg);
+  }
+
+  .movie-menu__mobile_type_cross {
+    right: 15px;
   }
 
   .movie-menu__links {
