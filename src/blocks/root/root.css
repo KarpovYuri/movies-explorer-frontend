@@ -1,0 +1,18 @@
+:root {
+  --text-main-color: #fff;
+  --text-second-color: #000;
+  --main-color: #8b8b8b;
+  --second-color: #dadada;
+  --third-color: #424242;
+  --main-bg-color: #202020;
+  --second-bg-color: #272727;
+  --third-bg-color: #303030;
+  --button-main-bg-color: #3ddc84;
+  --button-second-bg-color: #4285f4;
+  --search-form-bg-color: #2f2f2f;
+  --error-color: #ee3465;
+}
+
+.root {
+  background-color: var(--main-bg-color);
+}

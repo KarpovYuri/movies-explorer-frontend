@@ -1,0 +1,37 @@
+.more {
+  margin: 0 auto;
+}
+
+.more_height_big {
+  min-height: 166px;
+}
+
+.more_height_small {
+  min-height: 140px;
+}
+
+.more__btn {
+  width: 320px;
+  height: 36px;
+  margin-top: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-main-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: normal;
+  background-color: var(--search-form-bg-color);
+}
+
+.more__btn_hide {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .more__btn {
+    width: 240px;
+  }
+}

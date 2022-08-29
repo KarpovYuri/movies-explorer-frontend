@@ -1,0 +1,165 @@
+.movie-menu {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  z-index: 1;
+}
+
+.movie-menu__mobile {
+  height: 44px;
+  width: 44px;
+  display: none;
+  cursor: pointer;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.movie-menu__mobile_type_hamburger {
+  background-image: url(../../../images/hamburger-big-icon.svg);
+}
+
+.movie-menu__mobile_type_cross {
+  position: fixed;
+  top: 16px;
+  right: 30px;
+  background-image: url(../../../images/cross-icon.svg);
+}
+
+.movie-menu__dummy {
+  width: 72px;
+}
+
+.movie-menu__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.movie-menu__link {
+  text-decoration: none;
+  color: var(--text-main-color);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.active {
+  font-weight: 500;
+}
+
+.movie-menu__account-btn {
+  width: 100px;
+  height: 32px;
+  padding-right: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: var(--text-main-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: normal;
+  border: 2px solid rgba(170, 170, 170, .2);
+  border-radius: 50px;
+  background-image: url(../../../images/account-btn-icon.svg);
+  background-repeat: no-repeat;
+  background-position: 12px center;
+}
+
+.movie-menu__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--text-second-color);
+  opacity: 0.3;
+}
+
+.hide,
+.show {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .movie-menu {
+    height: 100vh;
+    width: 520px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: var(--main-bg-color);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .movie-menu_show {
+    display: flex;
+  }
+
+  .movie-menu__mobile {
+    display: block;
+  }
+
+  .movie-menu__dummy {
+    display: none;
+  }
+
+  .movie-menu__links {
+    margin-top: 159px;
+    flex-direction: column;
+    gap: 28px
+  }
+
+  .movie-menu__link {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .active {
+    border-bottom: solid 2px #fff;
+    padding-bottom: 4px;
+  }
+
+  .movie-menu__account-btn {
+    margin-bottom: 90px;
+  }
+
+  .show {
+    display: block;
+  }
+}
+
+@media (max-width: 576px) {
+  .movie-menu {
+    width: 320px;
+  }
+
+  .movie-menu__mobile {
+    width: 40px;
+    height: 43px;
+  }
+
+  .movie-menu__mobile_type_hamburger {
+    background-image: url(../../../images/hamburger-small-icon.svg);
+  }
+
+  .movie-menu__mobile_type_cross {
+    right: 15px;
+  }
+
+  .movie-menu__links {
+    margin-top: 144px;
+    gap: 24px
+  }
+
+  .movie-menu__account-btn {
+    margin-bottom: 46px;
+  }
+}

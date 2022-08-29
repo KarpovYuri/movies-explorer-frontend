@@ -1,0 +1,142 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.description {
+  display: flex;
+  padding: 0;
+  margin: 70px 0 0;
+  list-style: none;
+}
+
+.description__block {
+  width: 50%;
+  padding-right: 40px;
+}
+
+.description__block:last-child {
+  padding-right: 0;
+}
+
+.description__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.description__text {
+  margin: 26px 0 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.timeline {
+  margin-top: 110px;
+  display: flex;
+}
+
+.timeline__block {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.timeline__block_place_left {
+  flex-grow: 1;
+}
+
+.timeline__block_place_right {
+  flex-grow: 4;
+}
+
+.timeline__duration {
+  margin: 0;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeline__duration_color_green {
+  background-color: var(--button-main-bg-color);
+  color: var(--text-second-color);
+}
+
+.timeline__duration_color_grey {
+  background-color: var(--third-bg-color);
+}
+
+.timeline__title {
+  margin: 0;
+  margin-top: 14px;
+  color: var(--main-color);
+}
+
+@media (max-width: 768px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .description__block {
+    padding-right: 30px;
+  }
+
+  .description__text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .timeline {
+    margin-top: 93px;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .description {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .description__block {
+    width: 100%;
+    margin-bottom: 56px;
+    padding-right: 0;
+  }
+
+  .description__block:last-child {
+    margin-bottom: 0;
+  }
+
+  .description__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .description__text {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .week__container {
+    margin-top: 4px;
+  }
+
+  .timeline {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .timeline__title {
+    margin-top: 8px;
+  }
+}

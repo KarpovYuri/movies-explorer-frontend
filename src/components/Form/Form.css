@@ -1,0 +1,160 @@
+.form {
+  width: 396px;
+  padding: 70px 0;
+  margin: 0 auto;
+  letter-spacing: normal;
+}
+
+.form__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+  background-image: url('../../images/logo.svg');
+}
+
+.form__title {
+  margin: 0;
+  margin-top: 40px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: normal;
+}
+
+.form__fieldset {
+  padding: 40px 0 0;
+  margin: 0;
+  min-height: 266px;
+  border: none;
+}
+
+.form__field {
+  margin-top: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__field:first-child {
+  margin-top: 0;
+}
+
+.form__label {
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--main-color);
+}
+
+.form__input {
+  padding: 15px;
+  margin-top: 10px;
+  border: none;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: var(--search-form-bg-color);
+  border-radius: 8px;
+  color: var(--text-main-color);
+}
+
+.form__input:focus {
+  outline: 2px solid var(--button-second-bg-color);
+}
+
+.form__input::placeholder {
+  color: var(--main-color);
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.form__input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.form__btn {
+  height: 45px;
+  width: 396px;
+  margin: 69px 0 0;
+  border: none;
+  color: var(--text-main-color);
+  background-color: var(--button-second-bg-color);
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+}
+
+.form__link-wrapper {
+  margin: 16px 0 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--main-color);
+  letter-spacing: normal;
+}
+
+.form__link {
+  text-decoration: none;
+  color: var(--button-second-bg-color);
+}
+
+.form__error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--error-color);
+  margin-top: 10px;
+  min-height: 24px;
+}
+
+.error {
+  color: var(--error-color);
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 232px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .form {
+    padding: 56px 30px 0;
+  }
+
+  .form {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form__title {
+    margin-top: 50px;
+  }
+
+  .form__fieldset {
+    width: 260px;
+    padding-top: 80px;
+  }
+
+  .form__btn {
+    margin-top: 157px;
+    width: 260px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .form__link-wrapper {
+    margin-top: 14px;
+  }
+
+  .form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

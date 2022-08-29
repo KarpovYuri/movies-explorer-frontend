@@ -1,0 +1,41 @@
+.auth-menu {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.auth-menu__link {
+  color: var(--text-main-color);
+  text-decoration: none;
+  margin-right: 30px;
+}
+
+.auth-menu__button {
+  width: 76px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-second-color);
+  text-decoration: none;
+  background-color: var(--button-main-bg-color);
+  border-radius: 3px;
+}
+
+@media (max-width: 576px) {
+  .auth-menu {
+    font-size: 10px;
+  }
+
+  .auth-menu__link {
+    margin-right: 14px;
+  }
+
+  .auth-menu__button {
+    width: 54px;
+    height: 26px;
+  }
+}
