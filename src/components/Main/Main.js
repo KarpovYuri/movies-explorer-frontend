@@ -9,14 +9,16 @@ import './Main.css';
 
 function Main() {
   return (
-    <main>
+    <>
       <Header isLogged={false} />
-      <Promo />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
+      <main>
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 };
 

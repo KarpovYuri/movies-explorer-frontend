@@ -15,13 +15,15 @@ function Movies() {
   return (
     <>
       <Header isLogged={true} />
-      <SearchForm />
-      {isPreloader ? <Preloader /> :
-        <>
-          <MoviesCardList movies={movies} type='all' />
-          <More isShowMore={true} />
-        </>
-      }
+      <main>
+        <SearchForm />
+        {isPreloader ? <Preloader /> :
+          <>
+            <MoviesCardList movies={movies} type='all' />
+            <More isShowMore={true} />
+          </>
+        }
+      </main>
       <Footer />
     </>
   );

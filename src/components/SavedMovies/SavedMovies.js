@@ -16,15 +16,17 @@ function SavedMovies() {
   return (
     <>
       <Header isLogged={true} />
-      <SearchForm />
-      {isPreloader ? (
-        <Preloader />
-      ) : (
-        <>
-          <MoviesCardList movies={savedMovies} type={'save'} />
-          <More isShowMore={false} />
-        </>
-      )}
+      <main>
+        <SearchForm />
+        {isPreloader ? (
+          <Preloader />
+        ) : (
+          <>
+            <MoviesCardList movies={savedMovies} type={'save'} />
+            <More isShowMore={false} />
+          </>
+        )}
+      </main>
       <Footer />
     </>
   );

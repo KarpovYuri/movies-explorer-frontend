@@ -6,7 +6,7 @@ function SearchForm() {
       <form className='search__form'>
         <div className='search__find-icon'></div>
         <div className='search__input-wrapper'>
-          <input className='search__input' type='text' placeholder='Фильм' />
+          <input className='search__input' type='text' required placeholder='Фильм' />
           <button className='search__button hover-btn' type='button'></button>
         </div>
         <div className='search__checkbox-wrapper'>
