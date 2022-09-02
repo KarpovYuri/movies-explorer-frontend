@@ -18,7 +18,7 @@ function Movies({ onClickSaveMovie, openPopup }) {
   function renderMovies() {
     const foundMovies = searchMovie();
     if (foundMovies.length === 0) {
-      openPopup('По данному запросу ничего не найдено.');
+      openPopup('Ничего не найдено.');
       setIsRender(false);
       setIsPreloader(false);
     }

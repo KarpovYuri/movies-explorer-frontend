@@ -107,6 +107,21 @@
   background-image: url('../../images/switch-on.svg');
 }
 
+.search__form-error,
+.search__form-error:focus-within {
+  outline: 2px solid var(--error-color);
+}
+
+.search__error {
+  margin-top: 23px;
+  min-height: 23px;
+  font-size: 14px;
+  line-height: 23px;
+  text-align: center;
+  color: var(--error-color);
+  letter-spacing: normal;
+}
+
 @media (max-width: 1024px) {
   .search__form {
     padding: 0 20px 0 19px;

@@ -5,22 +5,24 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, openPopup }) {
 
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortSwitch, setIsShortSwitch] = useState(false);
+  const [isValidationError, setValidationError] = useState('');
 
   function handleChangeSearch(evt) {
+    setValidationError(evt.target.validationMessage)
     setIsSearchValue(evt.target.value);
   };
 
   function onSubmitSearch(evt) {
     evt.preventDefault();
-    if (isSearchValue === '') openPopup('Введите поисковый запрос.');
+    if (isSearchValue === '') setValidationError('Заполните это поле.');
     else
       if (isSearchValue === localStorage.getItem('searchText')) {
-        openPopup('Введите новый поисковый запрос.');
+        setValidationError('Введите новый поисковый запрос.');
       } else onSubmitSearchMovies(isSearchValue, isShortSwitch);
   };
 
   function handleChangeShortSwitch() {
-    if (isSearchValue === '') openPopup('Введите поисковый запрос.');
+    if (isSearchValue === '') setValidationError('Заполните это поле.');
     else {
       onClickShortMovie(!isShortSwitch);
       setIsShortSwitch(!isShortSwitch);
@@ -39,7 +41,7 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, openPopup }) {
   return (
     <section className='search'>
       <form
-        className='search__form'
+        className={`search__form ${isValidationError && 'search__form-error'}`}
         onSubmit={onSubmitSearch}
         noValidate
       >
@@ -73,7 +75,8 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, openPopup }) {
           <p className='search__checkbox-label'>Короткометражки</p>
         </div>
       </form>
-      <hr className='line line_place_search'></hr>
+      <div className='search__error'>{isValidationError}</div>
+      <hr className='line'></hr>
     </section>
   );
 };
