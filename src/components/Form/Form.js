@@ -25,7 +25,7 @@ function Form({ title, type, button, text }) {
               type='text'
               id='name'
               name='name'
-              className={`form__input ${isErrorMessage.name ? 'error' : ''}`}
+              className={`form__input ${isErrorMessage.name && 'error'}`}
               placeholder='Имя'
               value={isInputValue.name}
               autoComplete='off'
@@ -43,7 +43,7 @@ function Form({ title, type, button, text }) {
             type='email'
             id='email'
             name='email'
-            className={`form__input ${isErrorMessage.email ? 'error' : ''}`}
+            className={`form__input ${isErrorMessage.email && 'error'}`}
             placeholder='E-mail'
             value={isInputValue.email}
             autoComplete='off'
@@ -58,7 +58,7 @@ function Form({ title, type, button, text }) {
             type='password'
             id='password'
             name='password'
-            className={`form__input ${isErrorMessage.password ? 'error' : ''}`}
+            className={`form__input ${isErrorMessage.password && 'error'}`}
             placeholder='Пароль'
             value={isInputValue.password}
             autoComplete='off'

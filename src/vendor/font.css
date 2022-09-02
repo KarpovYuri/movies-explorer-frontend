@@ -11,3 +11,10 @@
   font-family: 'Inter';
   font-weight: 500;
 }
+
+@font-face {
+  src: url(./fonts/Inter-Black.woff2) format('woff2'),
+    url(./fonts/Inter-Black.woff) format('woff');
+  font-family: 'Inter';
+  font-weight: 900;
+}

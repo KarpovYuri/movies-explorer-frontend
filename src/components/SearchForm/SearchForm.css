@@ -16,7 +16,6 @@
   outline: 2px solid var(--button-second-bg-color);
 }
 
-
 .search__find-icon {
   width: 34px;
   height: 34px;
@@ -65,12 +64,10 @@
 .search__button {
   width: 80px;
   height: 34px;
-  padding: 0;
   background-image: url('../../images/find-icon.svg');
   background-color: var(--button-second-bg-color);
   background-repeat: no-repeat;
   background-position: center center;
-  border: none;
   border-radius: 48px;
   cursor: pointer;
 }
