@@ -2,7 +2,6 @@ import Header from '../Header/Header';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import More from '../More/More';
 import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 
@@ -23,7 +22,6 @@ function SavedMovies() {
         ) : (
           <>
             <MoviesCardList movies={savedMovies} type={'save'} />
-            <More isShowMore={false} />
           </>
         )}
       </main>

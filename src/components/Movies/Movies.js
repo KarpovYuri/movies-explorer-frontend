@@ -74,7 +74,7 @@ function Movies({ onClickSaveMovie }) {
           isRender ? (
             <MoviesCardList
               movies={isFoundMovies}
-              type={'all'}
+              displayOption={'all'}
               onClickButtonMovie={onClickSaveMovie}
             />
           ) : isResponseMessage && <ResponseSection

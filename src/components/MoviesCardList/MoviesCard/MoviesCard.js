@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 
-function MoviesCard({ movie, type }) {
+function MoviesCard({ movie, displayOption }) {
 
   const { nameRU, duration, image, saved } = movie;
 
@@ -17,7 +17,7 @@ function MoviesCard({ movie, type }) {
         <div className='movie-card__wrapper'>
           <h2 className='movie-card__title'>{nameRU}</h2>
           {
-            type === 'all'
+            displayOption === 'all'
               ? saved
                 ? <button type='button' className='movie-card__btn movie-card__btn_type_saved  hover-btn'></button>
                 : <button type='button' className='movie-card__btn movie-card__btn_type_unsaved  hover-btn'></button>
