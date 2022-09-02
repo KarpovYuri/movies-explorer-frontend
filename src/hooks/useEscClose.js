@@ -1,9 +1,10 @@
-import React from 'react';
+import { useEffect } from "react";
 
-const useEscClose = (isOpen, onClose) => {
+function useEscClose(isOpen, onClose) {
 
   // Закрытие попапов по Escape
-  React.useEffect(() => {
+  useEffect(() => {
+
     function handleEscClose(event) {
       if (event.key === 'Escape') {
         onClose();

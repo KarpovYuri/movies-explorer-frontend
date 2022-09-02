@@ -1,5 +1,5 @@
 import React from 'react';
-import useEscClose from "../../hooks/useEscClose/useEscClose";
+import useEscClose from "../../hooks/useEscClose";
 import './Popup.css';
 
 function Popup({ isOpen, onClose, isPopupMessage }) {

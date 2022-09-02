@@ -3,7 +3,7 @@ import MoviesCard from './MoviesCard/MoviesCard';
 import More from './More/More';
 import './MoviesCardList.css';
 
-function MoviesCardList({ movies, displayOption }) {
+function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   const [isMoviesCounter, setIsMoviesCounter] = useState(0);
   const [isQtyAddMovies, setIsQtyAddMovies] = useState(0);
@@ -66,6 +66,7 @@ function MoviesCardList({ movies, displayOption }) {
                   movie={item}
                   key={item.id}
                   displayOption='all'
+                  onClickMovieBtn={onClickMovieBtn}
                 />
               );
             })
@@ -74,6 +75,7 @@ function MoviesCardList({ movies, displayOption }) {
                 <MoviesCard
                   movie={item}
                   key={item._id}
+                  onClickMovieBtn={onClickMovieBtn}
                 />
               );
             })}

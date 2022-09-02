@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import { CurrentSavedMoviesContext } from '../../../contexts/CurrentSavedMoviesContext';
 import './MoviesCard.css';
 
-function MoviesCard({ movie, displayOption }) {
-
-  const { nameRU, duration, image, saved } = movie;
+function MoviesCard({ movie, displayOption, onClickMovieBtn }) {
+  const CurrentSavedMovies = useContext(CurrentSavedMoviesContext);
+  const { nameRU, duration, image } = movie;
+  const movieData = CurrentSavedMovies.filter((item) => item.movieId === movie.id);
+  const isSaved = movieData.length > 0;
 
   function getFormattedTime(duration) {
     const hours = Math.trunc(duration / 60);
@@ -18,10 +22,26 @@ function MoviesCard({ movie, displayOption }) {
           <h2 className='movie-card__title'>{nameRU}</h2>
           {
             displayOption === 'all'
-              ? saved
-                ? <button type='button' className='movie-card__btn movie-card__btn_type_saved  hover-btn'></button>
-                : <button type='button' className='movie-card__btn movie-card__btn_type_unsaved  hover-btn'></button>
-              : <button type='button' className='movie-card__btn movie-card__btn_type_close hover-btn'></button>
+              ? isSaved
+                ?
+                <button
+                  type='button'
+                  className='movie-card__btn movie-card__btn_type_saved hover-btn'
+                  onClick={() => onClickMovieBtn(movie, 'delete', movieData[0]._id)}
+                ></button>
+                :
+                <button
+                  type='button'
+                  className='movie-card__btn movie-card__btn_type_unsaved hover-btn'
+                  onClick={() => onClickMovieBtn(movie, 'save', null)}
+                ></button>
+              :
+              <button
+                type='button'
+                className='movie-card__btn movie-card__btn_type_close hover-btn'
+                onClick={() => onClickMovieBtn(movie._id)
+                }
+              ></button>
           }
         </div>
         <hr className='line line_place_movie'></hr>

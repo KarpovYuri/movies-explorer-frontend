@@ -10,7 +10,7 @@ import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
 import searchMovie from '../../utils/searchMovie';
 
-function Movies({ onClickSaveMovie }) {
+function Movies({ onClickMovieBtn }) {
 
   const [isPreloader, setIsPreloader] = useState(false);
   const [isFoundMovies, setIsFoundMovies] = useState([]);
@@ -71,15 +71,16 @@ function Movies({ onClickSaveMovie }) {
           onClickShortMovie={onClickShortMovie}
         />
         {isPreloader ? <Preloader /> :
-          isRender ? (
+          isRender
+            ?
             <MoviesCardList
               movies={isFoundMovies}
               displayOption={'all'}
-              onClickButtonMovie={onClickSaveMovie}
+              onClickMovieBtn={onClickMovieBtn}
             />
-          ) : isResponseMessage && <ResponseSection
-            isResponseMessage={isResponseMessage}
-          />
+            : isResponseMessage && <ResponseSection
+              isResponseMessage={isResponseMessage}
+            />
         }
       </main>
       <Footer />

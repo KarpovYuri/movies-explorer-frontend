@@ -1,17 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import useFormAndValidation from '../../hooks/useFormAndValidation'
 import './Form.css';
 
 function Form({ title, type, button, text }) {
 
-  const [isErrorMessage, setIsErrorMessage] = useState({ name: '', email: '', password: '' });
-  const [isInputValue, setIsInputValue] = useState({ name: '', email: '', password: '' });
-
-  const handleChangeValue = (evt) => {
-    const { name, value } = evt.target;
-    setIsInputValue((prev) => ({ ...prev, [name]: value }));
-    setIsErrorMessage((prev) => ({ ...prev, [name]: evt.target.validationMessage }));
-  };
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   return (
     <form className='form'>
@@ -25,16 +18,16 @@ function Form({ title, type, button, text }) {
               type='text'
               id='name'
               name='name'
-              className={`form__input ${isErrorMessage.name && 'error'}`}
+              className={`form__input ${errors.name && 'error'}`}
               placeholder='Имя'
-              value={isInputValue.name}
+              value={values.name || ''}
               autoComplete='off'
               required
               minLength={2}
               maxLength={30}
-              onChange={handleChangeValue}
+              onChange={handleChange}
             />
-            <span className='form__error'>{isErrorMessage.name}</span>
+            <span className='form__error'>{errors.name}</span>
           </div>
         )}
         <div className='form__field'>
@@ -43,14 +36,14 @@ function Form({ title, type, button, text }) {
             type='email'
             id='email'
             name='email'
-            className={`form__input ${isErrorMessage.email && 'error'}`}
+            className={`form__input ${errors.email && 'error'}`}
             placeholder='E-mail'
-            value={isInputValue.email}
+            value={values.email || ''}
             autoComplete='off'
             required
-            onChange={handleChangeValue}
+            onChange={handleChange}
           />
-          <span className='form__error'>{isErrorMessage.email}</span>
+          <span className='form__error'>{errors.email}</span>
         </div>
         <div className='form__field'>
           <label htmlFor='password' className='form__label'>Пароль</label>
@@ -58,14 +51,14 @@ function Form({ title, type, button, text }) {
             type='password'
             id='password'
             name='password'
-            className={`form__input ${isErrorMessage.password && 'error'}`}
+            className={`form__input ${errors.password && 'error'}`}
             placeholder='Пароль'
-            value={isInputValue.password}
+            value={values.password || ''}
             autoComplete='off'
             required
-            onChange={handleChangeValue}
+            onChange={handleChange}
           />
-          <span className='form__error'>{isErrorMessage.password}</span>
+          <span className='form__error'>{errors.password}</span>
         </div>
       </fieldset>
       <button type='submit' className='form__btn hover-btn'>{button}</button>
