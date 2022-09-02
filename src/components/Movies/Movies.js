@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
+import ResponseSection from '../ResponseSection/ResponseSection';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import './Movies.css';
@@ -9,36 +10,43 @@ import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
 import searchMovie from '../../utils/searchMovie';
 
-function Movies({ onClickSaveMovie, openPopup }) {
+function Movies({ onClickSaveMovie }) {
 
   const [isPreloader, setIsPreloader] = useState(false);
   const [isFoundMovies, setIsFoundMovies] = useState([]);
-  const [isRender, setIsRender] = useState(true);
+  const [isRender, setIsRender] = useState(false);
+  const [isResponseMessage, setIsResponseMessage] = useState('');
 
   function renderMovies() {
+    setIsPreloader(false);
     const foundMovies = searchMovie();
     if (foundMovies.length === 0) {
-      openPopup('Ничего не найдено.');
+      setIsResponseMessage('Ничего не найдено.');
       setIsRender(false);
-      setIsPreloader(false);
     }
     else {
       setIsFoundMovies(foundMovies);
       setIsRender(true);
-      setIsPreloader(false);
     }
   };
 
-  async function onSubmitSearchMovies(searchText, shortMovieSwitch) {
+  function onSubmitSearchMovies(searchText, shortMovieSwitch) {
     setIsPreloader(true);
     localStorage.setItem('searchText', searchText.toLowerCase());
     localStorage.setItem('shortMovieSwitch', shortMovieSwitch);
     if (!localStorage.getItem('movieDataBase')) {
-      await moviesApi.getMovies()
-        .then(result => localStorage.setItem('movieDataBase', JSON.stringify(result)))
-        .catch(() => openPopup('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен.Подождите немного и попробуйте ещё раз'))
-    }
-    renderMovies();
+      moviesApi.getMovies()
+        .then((result) => {
+          localStorage.setItem('movieDataBase', JSON.stringify(result));
+          renderMovies();
+        })
+        .catch(() => {
+          setIsPreloader(false);
+          setIsResponseMessage(`Во время запроса произошла ошибка.
+          Возможно, проблема с соединением или сервер недоступен.
+          Подождите немного и попробуйте ещё раз.`);
+        });
+    } else renderMovies();
   };
 
   function onClickShortMovie(shortMovieSwitch) {
@@ -50,7 +58,7 @@ function Movies({ onClickSaveMovie, openPopup }) {
     if (localStorage.getItem('movieDataBase')) {
       setIsRender(true);
       renderMovies();
-    } else setIsRender(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,16 +69,17 @@ function Movies({ onClickSaveMovie, openPopup }) {
         <SearchForm
           onSubmitSearchMovies={onSubmitSearchMovies}
           onClickShortMovie={onClickShortMovie}
-          openPopup={openPopup}
         />
         {isPreloader ? <Preloader /> :
-          isRender && (
+          isRender ? (
             <MoviesCardList
               movies={isFoundMovies}
               type={'all'}
               onClickButtonMovie={onClickSaveMovie}
             />
-          )
+          ) : isResponseMessage && <ResponseSection
+            isResponseMessage={isResponseMessage}
+          />
         }
       </main>
       <Footer />

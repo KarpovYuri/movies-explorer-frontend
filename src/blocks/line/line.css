@@ -14,23 +14,12 @@
   margin: 20px 0 0;
 }
 
-.line_place_search {
-  margin: 69px 0 0;
-}
-
 .line_place_movie {
   margin: 13px 0 0;
 }
 
 .line_place_profile {
   margin: 16px 0 0;
-}
-
-@media (max-width: 768px) {
-
-  .line_place_search {
-    margin-top: 109px;
-  }
 }
 
 @media (max-width: 576px) {
@@ -44,10 +33,6 @@
 
   .line_place_footer {
     margin-top: 21px;
-  }
-
-  .line_place_search {
-    margin-top: 109px;
   }
 
   .line_place_movie {

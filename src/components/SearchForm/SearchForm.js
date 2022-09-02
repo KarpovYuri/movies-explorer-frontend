@@ -1,28 +1,25 @@
 import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm({ onSubmitSearchMovies, onClickShortMovie, openPopup }) {
+function SearchForm({ onSubmitSearchMovies, onClickShortMovie }) {
 
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortSwitch, setIsShortSwitch] = useState(false);
-  const [isValidationError, setValidationError] = useState('');
+  const [isValidationError, setIsValidationError] = useState('');
 
   function handleChangeSearch(evt) {
-    setValidationError(evt.target.validationMessage)
+    setIsValidationError(evt.target.validationMessage)
     setIsSearchValue(evt.target.value);
   };
 
   function onSubmitSearch(evt) {
     evt.preventDefault();
-    if (isSearchValue === '') setValidationError('Заполните это поле.');
-    else
-      if (isSearchValue === localStorage.getItem('searchText')) {
-        setValidationError('Введите новый поисковый запрос.');
-      } else onSubmitSearchMovies(isSearchValue, isShortSwitch);
+    if (isSearchValue === '') setIsValidationError('Заполните это поле.');
+    else onSubmitSearchMovies(isSearchValue, isShortSwitch);
   };
 
   function handleChangeShortSwitch() {
-    if (isSearchValue === '') setValidationError('Заполните это поле.');
+    if (isSearchValue === '') setIsValidationError('Заполните это поле.');
     else {
       onClickShortMovie(!isShortSwitch);
       setIsShortSwitch(!isShortSwitch);

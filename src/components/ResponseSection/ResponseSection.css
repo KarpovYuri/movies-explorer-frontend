@@ -1,0 +1,43 @@
+.response {
+  min-height: 140px;
+  padding: 20px 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+.response__message {
+  margin: 0;
+  padding: 0 30px;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 30px;
+  text-align: center;
+  color: var(--error-color);
+  letter-spacing: normal;
+}
+
+@media (max-width: 768px) {
+  .response {
+    padding: 20px 30px;
+  }
+
+  .response__message {
+    font-size: 20px;
+    line-height: 27px;
+  }
+}
+
+@media (max-width: 576px) {
+  .response {
+    padding: 10px 10px;
+  }
+
+  .response__message {
+    font-weight: 400;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 19px;
+  }
+}
