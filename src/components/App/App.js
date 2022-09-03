@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
@@ -17,15 +17,16 @@ import Popup from '../Popup/Popup';
 
 function App() {
 
-  const navigate = useNavigate();
   const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const [isResponseMessage, setIsResponseMessage] = useState('');
   const [isPopupMessage, setIsPopupMessage] = useState('');
-  const [currentMovies, setCurrentMovies] = useState([]);
+  const [isCurrentMovies, setCurrentMovies] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
-  const [isAccept, setIsAccept] = useState(true);
-  const [currentUser, setCurrentUser] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  let messageClean;
+  const [isCurrentUser, setIsCurrentUser] = useState({});
+
+  function removeResponseMessage() {
+    setTimeout(() => setIsResponseMessage(''), 5000);
+  }
 
   function closePopup() {
     setIsOpenPopup(false);
@@ -37,62 +38,34 @@ function App() {
     setIsOpenPopup(true);
   };
 
-  const onRegister = async (userData) => {
-    setIsPopupMessage('');
-    setIsAccept(false);
-
-    const response = await authApi.registerUser(userData);
-
-    if (response._id) {
-      setIsAccept(true);
-      setIsPopupMessage('Вы успешно зарегистрировались!');
-      setIsAccept(false);
-      messageClean = setTimeout(() => {
-        setIsAccept(true);
-        setIsPopupMessage('');
-      }, 5000);
-      return onLogin(userData);
-    }
-    if (response.message === 409) {
-      setIsPopupMessage('Пользователем с данным email уже зарегистрирован');
-    } else {
-      setIsPopupMessage('Что-то пошло не так! Попробуйте ещё раз.');
-    }
-    setIsAccept(false);
-    messageClean = setTimeout(() => {
-      setIsAccept(true);
-      setIsPopupMessage('');
-    }, 5000);
+  function onRegister(userData) {
+    authApi.registerUser(userData)
+    .then((res) => {
+      openPopup('Регистрация прошла успешно!');
+      onLogin();
+    })
+    .catch((error) => {
+      if (error === 409) {
+        setIsResponseMessage('Пользователем с данным email уже зарегистрирован.');
+      } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+      removeResponseMessage();
+    });
   };
 
-  const onLogin = async (userData) => {
-    setIsPopupMessage('');
-    setIsAccept(false);
-
-    const userDataAuth = { email: userData.email, password: userData.password };
-    const response = await authApi.loginUser(userDataAuth);
-
-    if (response.token) {
-      localStorage.setItem('token', response.token);
-      // headers.authorization = `Bearer ${localStorage.getItem('token')}`;
-      setIsLogin(true);
-      const user = await mainApi.getUserInfo();
-      // const cards = await getMovies();
-      // setCurrentMovies(cards);
-      setCurrentUser(user);
-      navigate('/movies');
-    }
-    if (response.message === 401) {
-      setIsPopupMessage('Неправильные почта или пароль');
-      setIsAccept(false);
-    } else {
-      setIsPopupMessage('Что-то пошло не так! Попробуйте ещё раз.');
-      setIsAccept(false);
-    }
-    messageClean = setTimeout(() => {
-      setIsAccept(true);
-      setIsPopupMessage('');
-    }, 5000);
+  function onLogin(userData) {
+    authApi.loginUser(userData)
+    .then((result) => {
+      if (result._id) {
+        localStorage.setItem('_id', result._id);
+        setIsLogin(true);
+      };
+    })
+    .catch((error) => {
+      if (error === 401) {
+        setIsResponseMessage('Неверная почта или пароль.');
+      } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+      removeResponseMessage();
+    });
   };
 
   const onClickDeleteMovie = async (id) => {
@@ -100,7 +73,7 @@ function App() {
     if (response.message === 'Фильм удалён') {
       setCurrentMovies((prev) => prev.filter((el) => el._id !== id));
     } else {
-      setIsPopupMessage('Что-то пошло не так! Попробуйте ещё раз.');
+      setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
     }
   };
 
@@ -123,24 +96,36 @@ function App() {
     if (response._id) {
       setCurrentMovies((prev) => [...prev, response]);
     } else if (response.message === 400) {
-      setIsPopupMessage('Что-то пошло не так! Данный фильм не может быть сохранён');
+      setIsResponseMessage('Что-то пошло не так! Данный фильм не может быть сохранён');
       openPopup(true);
     } else {
-      setIsPopupMessage('Что-то пошло не так! Попробуйте ещё раз.');
+      setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
       openPopup(true);
     }
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <CurrentSavedMoviesContext.Provider value={currentMovies}>
+    <CurrentUserContext.Provider value={isCurrentUser}>
+      <CurrentSavedMoviesContext.Provider value={isCurrentMovies}>
         <div className='app'>
           <Routes>
             <Route exact path='/' element={<Main />} />
             <Route path='/movies' element={<Movies onClickMovieBtn={onClickMovieBtn} />} />
             <Route path='/saved-movies' element={<SavedMovies />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/signin' element={<Login />} />
+            <Route
+                path='/signin'
+                element={
+                  isLogin ? (
+                    <Navigate to='/movies' />
+                  ) : (
+                    <Login
+                      onLogin={onLogin}
+                      isResponseMessage={isResponseMessage}
+                    />
+                  )
+                }
+              />
             <Route
               path='/signup'
               element={
@@ -148,8 +133,7 @@ function App() {
                   ? <Navigate to='/movies' />
                   : <Register
                     onRegister={onRegister}
-                    isPopupMessage={isPopupMessage}
-                    isAccept={isAccept}
+                    isResponseMessage={isResponseMessage}
                   />
               }
             />

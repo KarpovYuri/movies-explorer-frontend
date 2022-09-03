@@ -1,15 +1,14 @@
 import Form from '../Form/Form';
 
-function Register({ onRegister, isPopupMessage, isAccept }) {
+function Register({ onRegister, isResponseMessage }) {
   return (
     <Form
       title={'Добро пожаловать!'}
-      type={'signup'}
+      pageType={'signup'}
       button={'Зарегистрироваться'}
       text={`Уже зарегистрированы? `}
-      onClick={onRegister}
-      isPopupMessage={isPopupMessage}
-      isAccept={isAccept}
+      onSubmitForm={onRegister}
+      isResponseMessage={isResponseMessage}
     />
   );
 };

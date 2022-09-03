@@ -11,33 +11,33 @@ class AuthApi {
       return result.json();
     } else {
       // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${result.status}`);
+      return Promise.reject(result.status);
     }
   }
 
 
   // Регистрация пользователя
-  registerUser(email, password) {
+  registerUser(userData) {
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify(userData)
     })
       .then(res => this._handlingResponse(res));
   }
 
 
   // Вход пользователя
-  loginUser(email, password) {
+  loginUser(userData) {
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify(userData)
     })
       .then(res => this._handlingResponse(res));
   }
