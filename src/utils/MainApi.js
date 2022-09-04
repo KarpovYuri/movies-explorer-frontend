@@ -5,14 +5,11 @@ class MainApi {
 
   // Обработка ответа сервера
   _handlingResponse(result) {
-    try {
-      if (result.ok) {
-        return result.json();
-      } else {
-        throw new Error(`Ошибка: ${result.status}`);
-      }
-    } catch (error) {
-      return error;
+    if (result.ok) {
+      return result.json();
+    } else {
+      // если ошибка, отклоняем промис
+      return Promise.reject(result.status);
     }
   }
 
@@ -63,7 +60,7 @@ class MainApi {
 
   // Удаление фильма из сохраненных
   deleteMovie(movieId) {
-    return fetch(`${this._baseUrl}cards/${movieId}`, {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
       credentials: 'include',
     })
@@ -73,7 +70,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.movies.project.nomoredomains.sbs',
+  baseUrl: 'http://localhost:3000',
 });
 
 export default mainApi;

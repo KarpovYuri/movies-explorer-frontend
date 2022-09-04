@@ -10,7 +10,7 @@ import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
 import searchMovie from '../../utils/searchMovie';
 
-function Movies({ onClickMovieBtn }) {
+function Movies({ onClickSaveMovie }) {
 
   const [isPreloader, setIsPreloader] = useState(false);
   const [isFoundMovies, setIsFoundMovies] = useState([]);
@@ -76,7 +76,7 @@ function Movies({ onClickMovieBtn }) {
             <MoviesCardList
               movies={isFoundMovies}
               displayOption={'all'}
-              onClickMovieBtn={onClickMovieBtn}
+              onClickMovieBtn={onClickSaveMovie}
             />
             : isResponseMessage && <ResponseSection
               isResponseMessage={isResponseMessage}
