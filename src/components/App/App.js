@@ -21,7 +21,7 @@ function App() {
   const [isResponseMessage, setIsResponseMessage] = useState('');
   const [isPopupMessage, setIsPopupMessage] = useState('');
   const [isCurrentMovies, setCurrentMovies] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const [isCurrentUser, setIsCurrentUser] = useState({});
 
   function removeResponseMessage() {
@@ -40,32 +40,34 @@ function App() {
 
   function onRegister(userData) {
     authApi.registerUser(userData)
-    .then((res) => {
-      openPopup('Регистрация прошла успешно!');
-      onLogin();
-    })
-    .catch((error) => {
-      if (error === 409) {
-        setIsResponseMessage('Пользователем с данным email уже зарегистрирован.');
-      } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
-      removeResponseMessage();
-    });
+      .then((res) => {
+        openPopup('Регистрация прошла успешно!');
+        delete userData.name;
+        onLogin(userData);
+      })
+      .catch((error) => {
+        if (error === 409) {
+          setIsResponseMessage('Пользователем с данным email уже зарегистрирован.');
+        } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        removeResponseMessage();
+      });
   };
+
 
   function onLogin(userData) {
     authApi.loginUser(userData)
-    .then((result) => {
-      if (result._id) {
-        localStorage.setItem('_id', result._id);
-        setIsLogin(true);
-      };
-    })
-    .catch((error) => {
-      if (error === 401) {
-        setIsResponseMessage('Неверная почта или пароль.');
-      } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
-      removeResponseMessage();
-    });
+      .then((result) => {
+        if (result._id) {
+          localStorage.setItem('_id', result._id);
+          setIsLogged(true);
+        };
+      })
+      .catch((error) => {
+        if (error === 401) {
+          setIsResponseMessage('Неверная почта или пароль.');
+        } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        removeResponseMessage();
+      });
   };
 
   const onClickDeleteMovie = async (id) => {
@@ -109,27 +111,27 @@ function App() {
       <CurrentSavedMoviesContext.Provider value={isCurrentMovies}>
         <div className='app'>
           <Routes>
-            <Route exact path='/' element={<Main />} />
+            <Route exact path='/' element={<Main isLogged={isLogged} />} />
             <Route path='/movies' element={<Movies onClickMovieBtn={onClickMovieBtn} />} />
             <Route path='/saved-movies' element={<SavedMovies />} />
             <Route path='/profile' element={<Profile />} />
             <Route
-                path='/signin'
-                element={
-                  isLogin ? (
-                    <Navigate to='/movies' />
-                  ) : (
-                    <Login
-                      onLogin={onLogin}
-                      isResponseMessage={isResponseMessage}
-                    />
-                  )
-                }
-              />
+              path='/signin'
+              element={
+                isLogged ? (
+                  <Navigate to='/movies' />
+                ) : (
+                  <Login
+                    onLogin={onLogin}
+                    isResponseMessage={isResponseMessage}
+                  />
+                )
+              }
+            />
             <Route
               path='/signup'
               element={
-                isLogin
+                isLogged
                   ? <Navigate to='/movies' />
                   : <Register
                     onRegister={onRegister}

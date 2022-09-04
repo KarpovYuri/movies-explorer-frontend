@@ -7,10 +7,10 @@ import Footer from '../Footer/Footer';
 
 import './Main.css';
 
-function Main() {
+function Main({ isLogged }) {
   return (
     <>
-      <Header isLogged={false} />
+      <Header isLogged={isLogged} />
       <main>
         <Promo />
         <AboutProject />
