@@ -11,6 +11,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import ProtectedRoute from '../ProtectedRoute';
 import './App.css';
 
 import Popup from '../Popup/Popup';
@@ -112,9 +113,30 @@ function App() {
         <div className='app'>
           <Routes>
             <Route exact path='/' element={<Main isLogged={isLogged} />} />
-            <Route path='/movies' element={<Movies onClickMovieBtn={onClickMovieBtn} />} />
-            <Route path='/saved-movies' element={<SavedMovies />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route
+              path='/movies'
+              element={
+                <ProtectedRoute isLogged={isLogged}>
+                  <Movies onClickMovieBtn={onClickMovieBtn} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/saved-movies'
+              element={
+                <ProtectedRoute isLogged={isLogged}>
+                  <SavedMovies />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/profile'
+              element={
+                <ProtectedRoute isLogged={isLogged}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path='/signin'
               element={
