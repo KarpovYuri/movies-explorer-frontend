@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import mainApi from '../../utils/MainApi';
 import authApi from '../../utils/authApi';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -11,19 +9,18 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import ProtectedRoute from '../ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 import Popup from '../Popup/Popup';
 
 function App() {
-
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isResponseMessage, setIsResponseMessage] = useState('');
   const [isPopupMessage, setIsPopupMessage] = useState('');
-  const [isCurrentMovies, setCurrentMovies] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const [isCurrentUser, setIsCurrentUser] = useState({});
+  const navigate = useNavigate();
 
   function removeResponseMessage() {
     setTimeout(() => setIsResponseMessage(''), 5000);
@@ -41,7 +38,7 @@ function App() {
 
   function onRegister(userData) {
     authApi.registerUser(userData)
-      .then((res) => {
+      .then(() => {
         openPopup('Регистрация прошла успешно!');
         delete userData.name;
         onLogin(userData);
@@ -61,6 +58,7 @@ function App() {
         if (result._id) {
           localStorage.setItem('_id', result._id);
           setIsLogged(true);
+          navigate('/movies');
         };
       })
       .catch((error) => {
@@ -71,106 +69,82 @@ function App() {
       });
   };
 
-  const onClickDeleteMovie = async (id) => {
-    const response = await mainApi.deleteMovie(id);
-    if (response.message === 'Фильм удалён') {
-      setCurrentMovies((prev) => prev.filter((el) => el._id !== id));
-    } else {
-      setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
-    }
-  };
+  function onLogout() {
+    authApi.logoutUser()
+      .then(() => {
+        localStorage.clear();
+        setIsLogged(false);
+      })
+      .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'));
+  }
 
-  const onClickMovieBtn = async (movie, status, id) => {
-    if (status === 'delete') {
-      onClickDeleteMovie(id);
-      return;
+  // Проверка токена и авторизация пользователя
+  useEffect(() => {
+    if (localStorage.getItem('_id')) {
+      authApi.checkToken()
+        .then(data => {
+          if (data) {
+            setIsLogged(true);
+          }
+        })
+        .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'))
     }
-    const movieNew = {
-      ...movie,
-      image: `https://api.movies.project.nomoredomains.sbs${movie.image.url}`,
-      thumbnail: `https://api.movies.project.nomoredomains.sbs${movie.image.formats.thumbnail.url}`,
-      movieId: movie.id,
-    };
-    delete movieNew.id;
-    delete movieNew.created_at;
-    delete movieNew.updated_at;
-    const response = await mainApi.savеMovie(movieNew);
-    console.log(response);
-    if (response._id) {
-      setCurrentMovies((prev) => [...prev, response]);
-    } else if (response.message === 400) {
-      setIsResponseMessage('Что-то пошло не так! Данный фильм не может быть сохранён');
-      openPopup(true);
-    } else {
-      setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
-      openPopup(true);
-    }
-  };
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={isCurrentUser}>
-      <CurrentSavedMoviesContext.Provider value={isCurrentMovies}>
-        <div className='app'>
-          <Routes>
-            <Route exact path='/' element={<Main isLogged={isLogged} />} />
-            <Route
-              path='/movies'
-              element={
-                <ProtectedRoute isLogged={isLogged}>
-                  <Movies onClickMovieBtn={onClickMovieBtn} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path='/saved-movies'
-              element={
-                <ProtectedRoute isLogged={isLogged}>
-                  <SavedMovies />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path='/profile'
-              element={
-                <ProtectedRoute isLogged={isLogged}>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path='/signin'
-              element={
-                isLogged ? (
-                  <Navigate to='/movies' />
-                ) : (
-                  <Login
-                    onLogin={onLogin}
-                    isResponseMessage={isResponseMessage}
-                  />
-                )
-              }
-            />
-            <Route
-              path='/signup'
-              element={
-                isLogged
-                  ? <Navigate to='/movies' />
-                  : <Register
-                    onRegister={onRegister}
-                    isResponseMessage={isResponseMessage}
-                  />
-              }
-            />
-            <Route path='/*' element={<ErrorPage />} />
-          </Routes>
-          <Popup
-            isOpen={isOpenPopup}
-            onClose={closePopup}
-            isPopupMessage={isPopupMessage}
+      <div className='app'>
+        <Routes>
+          <Route exact path='/' element={<Main isLogged={isLogged} />} />
+          <Route path='/movies' element={
+            <ProtectedRoute isLogged={isLogged}>
+              <Movies />
+            </ProtectedRoute>
+          } />
+          <Route path='/saved-movies' element={
+            <ProtectedRoute isLogged={isLogged}>
+              <SavedMovies />
+            </ProtectedRoute>
+          } />
+          <Route path='/profile' element={
+            <ProtectedRoute isLogged={isLogged}>
+              <Profile onLogout={onLogout} isLogged={isLogged} />
+            </ProtectedRoute>
+          }
           />
-        </div>
-      </CurrentSavedMoviesContext.Provider>
-    </CurrentUserContext.Provider>
+          <Route
+            path='/signin'
+            element={
+              isLogged ? (
+                <Navigate to='/movies' />
+              ) : (
+                <Login
+                  onLogin={onLogin}
+                  isResponseMessage={isResponseMessage}
+                />
+              )
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              isLogged
+                ? <Navigate to='/movies' />
+                : <Register
+                  onRegister={onRegister}
+                  isResponseMessage={isResponseMessage}
+                />
+            }
+          />
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+        <Popup
+          isOpen={isOpenPopup}
+          onClose={closePopup}
+          isPopupMessage={isPopupMessage}
+        />
+      </div>
+    </CurrentUserContext.Provider >
   );
 };
 

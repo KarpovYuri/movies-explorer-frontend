@@ -1,12 +1,11 @@
 import { React } from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Header from '../Header/Header';
 import './Profile.css';
 
 import userData from '../../utils/dataUser';
 
-function Profile() {
+function Profile({ onLogout, isLogged }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const isError = false;
 
@@ -14,7 +13,7 @@ function Profile() {
 
   return (
     <>
-      <Header isLogged={true} />
+      <Header isLogged={isLogged} />
       <main className='profile'>
         <h1 className='profile__title'>{`Привет, ${name}!`}</h1>
         <form className='profile__form'>
@@ -54,7 +53,12 @@ function Profile() {
             ?
             <>
               <p className='profile__edit hover' onClick={() => setIsDisabled(!isDisabled)}>Редактировать</p>
-              <Link to='/' className='profile__logout hover'>Выйти из аккаунта</Link>
+              <p
+                className='profile__logout hover'
+                onClick={onLogout}
+              >
+                Выйти из аккаунта
+              </p>
             </>
             :
             <button

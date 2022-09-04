@@ -43,6 +43,17 @@ class AuthApi {
   }
 
 
+  // Выход пользователя
+  logoutUser(email) {
+    return fetch(`${this._baseUrl}/signout`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    })
+      .then(res => this._handlingResponse(res))
+  }
+
   // Проверка токена
   checkToken() {
     return fetch(`${this._baseUrl}/users/me`, {
