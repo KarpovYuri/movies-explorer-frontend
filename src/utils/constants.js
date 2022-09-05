@@ -13,7 +13,8 @@ const notFoundMessage = 'Ничего не найдено.';
 const requestErrorMessage = `Во время запроса произошла ошибка.
 Возможно, проблема с соединением или сервер недоступен.
 Подождите немного и попробуйте ещё раз.`;
-const validationMessage = 'Заполните это поле.'
+const validationMessage = 'Заполните это поле.';
+const startSearchMessage = 'Вы еще не сохранили ни одного фильма!';
 
 module.exports = {
   successfulRegistration,
@@ -29,4 +30,5 @@ module.exports = {
   notFoundMessage,
   requestErrorMessage,
   validationMessage,
+  startSearchMessage,
 };

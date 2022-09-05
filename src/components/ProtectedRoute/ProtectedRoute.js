@@ -1,7 +1,9 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute({ isLogged, children }) {
-  return <>{isLogged ? children : <Navigate to='/' />}</>;
-};
+function ProtectedRoute({ isLogged }) {
+  return (
+    isLogged ? <Outlet /> : <Navigate to='/' replace />
+  );
+}
 
 export default ProtectedRoute;

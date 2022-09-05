@@ -11,6 +11,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import './App.css';
 
 import Popup from '../Popup/Popup';
@@ -26,6 +27,7 @@ import {
   conflictErrorCode,
   conflictErrorMessage,
   serverErrorMessage,
+  startSearchMessage,
 } from '../../utils/constants'
 
 function App() {
@@ -130,7 +132,7 @@ function App() {
     if (isLogged) {
       mainApi.getSavedMovies()
         .then((savedMovies) => setIsCurrentMovies(savedMovies))
-        .catch(error => console.log(error));
+        .catch(error => openPopup(startSearchMessage));
     }
   }, [isLogged]);
 
@@ -176,27 +178,29 @@ function App() {
         <div className='app'>
           <Routes>
             <Route exact path='/' element={<Main isLogged={isLogged} />} />
-            <Route path='/movies' element={
-              <Movies
-                onClickSaveMovie={onClickSaveMovie}
-                isLogged={isLogged}
+            <Route element={<ProtectedRoute isLogged={isLogged} />}>
+              <Route path='/movies' element={
+                <Movies
+                  onClickSaveMovie={onClickSaveMovie}
+                  isLogged={isLogged}
+                />
+              } />
+              <Route path='/saved-movies' element={
+                <SavedMovies
+                  onClickDeleteMovie={onClickDeleteMovie}
+                  isLogged={isLogged}
+                />
+              } />
+              <Route path='/profile' element={
+                <Profile
+                  onLogout={onLogout}
+                  isLogged={isLogged}
+                  onSubmitForm={onUpdateUser}
+                  isResponseMessage={isResponseMessage}
+                />
+              }
               />
-            } />
-            <Route path='/saved-movies' element={
-              <SavedMovies
-                onClickDeleteMovie={onClickDeleteMovie}
-                isLogged={isLogged}
-              />
-            } />
-            <Route path='/profile' element={
-              <Profile
-                onLogout={onLogout}
-                isLogged={isLogged}
-                onSubmitForm={onUpdateUser}
-                isResponseMessage={isResponseMessage}
-              />
-            }
-            />
+            </Route>
             <Route
               path='/signin'
               element={
