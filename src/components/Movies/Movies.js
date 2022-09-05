@@ -8,9 +8,9 @@ import Footer from '../Footer/Footer';
 import './Movies.css';
 
 import moviesApi from '../../utils/MoviesApi';
-import searchMovie from '../../utils/searchMovie';
+import { searchMovie } from '../../utils/searchMovie';
 
-function Movies({ onClickSaveMovie }) {
+function Movies({ onClickSaveMovie, isLogged }) {
 
   const [isPreloader, setIsPreloader] = useState(false);
   const [isFoundMovies, setIsFoundMovies] = useState([]);
@@ -32,7 +32,7 @@ function Movies({ onClickSaveMovie }) {
 
   function onSubmitSearchMovies(searchText, shortMovieSwitch) {
     setIsPreloader(true);
-    localStorage.setItem('searchText', searchText.toLowerCase());
+    localStorage.setItem('searchText', searchText);
     localStorage.setItem('shortMovieSwitch', shortMovieSwitch);
     if (!localStorage.getItem('movieDataBase')) {
       moviesApi.getMovies()
@@ -56,6 +56,7 @@ function Movies({ onClickSaveMovie }) {
 
   useEffect(() => {
     if (localStorage.getItem('movieDataBase')) {
+      setIsPreloader(true);
       setIsRender(true);
       renderMovies();
     }
@@ -64,9 +65,10 @@ function Movies({ onClickSaveMovie }) {
 
   return (
     <>
-      <Header isLogged={true} />
+      <Header isLogged={isLogged} />
       <main>
         <SearchForm
+          displayOption={'all'}
           onSubmitSearchMovies={onSubmitSearchMovies}
           onClickShortMovie={onClickShortMovie}
         />

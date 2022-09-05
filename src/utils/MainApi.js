@@ -26,7 +26,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies`, {
       credentials: 'include',
     })
-      .then((result) => this._handlingResponse(result));
+      .then((result) => this._handlingResponse(result))
   }
 
   // Отправка данных профиля

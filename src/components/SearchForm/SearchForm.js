@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm({ onSubmitSearchMovies, onClickShortMovie }) {
+function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) {
 
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortSwitch, setIsShortSwitch] = useState(false);
   const [isValidationError, setIsValidationError] = useState('');
 
   function handleChangeSearch(evt) {
-    setIsValidationError(evt.target.validationMessage)
+    setIsValidationError(evt.target.validationMessage);
     setIsSearchValue(evt.target.value);
   };
 
@@ -19,21 +19,23 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie }) {
   };
 
   function handleChangeShortSwitch() {
-    if (isSearchValue === '') setIsValidationError('Заполните это поле.');
-    else {
-      onClickShortMovie(!isShortSwitch);
-      setIsShortSwitch(!isShortSwitch);
-    }
+    onClickShortMovie(!isShortSwitch);
+    setIsShortSwitch(!isShortSwitch);
   };
 
   useEffect(() => {
-    const searchText = localStorage.getItem('searchText');
-    const shortMovieSwitch = localStorage.getItem('shortMovieSwitch');
-    if (searchText && shortMovieSwitch) {
-      setIsSearchValue(searchText);
-      shortMovieSwitch === 'true' ? setIsShortSwitch(true) : setIsShortSwitch(false);
+    if (displayOption === 'all') {
+      const searchText = localStorage.getItem('searchText');
+      const shortMovieSwitch = localStorage.getItem('shortMovieSwitch');
+      if (searchText && shortMovieSwitch) {
+        setIsSearchValue(searchText);
+        shortMovieSwitch === 'true' ? setIsShortSwitch(true) : setIsShortSwitch(false);
+      }
+    } else {
+      const shortSavedMovieSwitch = localStorage.getItem('shortSavedMovieSwitch');
+      shortSavedMovieSwitch === 'true' ? setIsShortSwitch(true) : setIsShortSwitch(false);
     }
-  }, []);
+  }, [displayOption]);
 
   return (
     <section className='search'>

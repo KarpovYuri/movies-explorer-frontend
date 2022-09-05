@@ -82,7 +82,7 @@ function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
         </ul>
       </section>
       {
-        movies.length > isMoviesCounter
+        movies.length > isMoviesCounter && displayOption === 'all'
           ? <More incMoviesCounter={incMoviesCounter} />
           : <More isBtnHiden={true} />
       }

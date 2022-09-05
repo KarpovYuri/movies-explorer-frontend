@@ -60,7 +60,11 @@ function App() {
           localStorage.setItem('_id', result._id);
           setIsLogged(true);
           mainApi.getSavedMovies()
-            .then((savedMovies) => setIsCurrentMovies(savedMovies));
+            .then((savedMovies) => setIsCurrentMovies(savedMovies))
+            .catch((error) => {
+              if (error === 404) openPopup('Вы еще не сохранили ни одного фильма. Начните поиск.')
+              else openPopup('Что-то пошло не так! Попробуйте ещё раз.');
+            });
         };
       })
       .catch((error) => {
@@ -106,6 +110,7 @@ function App() {
         if (error === 400) openPopup('Что-то пошло не так! Фильм не может быть удален.');
         else openPopup('Что-то пошло не так! Попробуйте ещё раз.');
       });
+
   };
 
   function onClickSaveMovie(movie, typeBtn, id) {
@@ -139,19 +144,19 @@ function App() {
           <Routes>
             <Route exact path='/' element={<Main isLogged={isLogged} />} />
             <Route path='/movies' element={
-              <ProtectedRoute isLogged={isLogged}>
-                <Movies onClickSaveMovie={onClickSaveMovie} />
-              </ProtectedRoute>
+              <Movies
+                onClickSaveMovie={onClickSaveMovie}
+                isLogged={isLogged}
+              />
             } />
             <Route path='/saved-movies' element={
-              <ProtectedRoute isLogged={isLogged}>
-                <SavedMovies />
-              </ProtectedRoute>
+              <SavedMovies
+                onClickDeleteMovie={onClickDeleteMovie}
+                isLogged={isLogged}
+              />
             } />
             <Route path='/profile' element={
-              <ProtectedRoute isLogged={isLogged}>
-                <Profile onLogout={onLogout} isLogged={isLogged} />
-              </ProtectedRoute>
+              <Profile onLogout={onLogout} isLogged={isLogged} />
             }
             />
             <Route

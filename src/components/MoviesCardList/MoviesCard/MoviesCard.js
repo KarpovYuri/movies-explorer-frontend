@@ -17,7 +17,11 @@ function MoviesCard({ movie, displayOption, onClickMovieBtn }) {
   return (
     <section className='movie-card'>
       <a className='movie-card__trailer hover' href={movie.trailerLink} target={'_blank'} rel='noreferrer'>
-        <img className='movie-card__image' src={`https://api.nomoreparties.co${image.url}`} alt={nameRU} />
+        <img
+          className='movie-card__image'
+          src={displayOption === 'all' ? `https://api.nomoreparties.co${image.url}` : movie.image}
+          alt={nameRU}
+        />
       </a>
       <div className='movie-card__info'>
         <div className='movie-card__wrapper'>
