@@ -3,6 +3,19 @@ import MoviesCard from './MoviesCard/MoviesCard';
 import More from './More/More';
 import './MoviesCardList.css';
 
+import {
+  windowWidth_1279,
+  windowWidth_989,
+  windowWidth_629,
+  moviesCounter_16,
+  moviesCounter_12,
+  moviesCounter_8,
+  moviesCounter_5,
+  qtyAddMovies_4,
+  qtyAddMovies_3,
+  qtyAddMovies_2,
+} from '../../utils/config';
+
 function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   const [isMoviesCounter, setIsMoviesCounter] = useState(0);
@@ -10,21 +23,21 @@ function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   function setNumberMovies(windowWidth) {
     switch (true) {
-      case (windowWidth > 1279):
-        setIsMoviesCounter(16);
-        setIsQtyAddMovies(4);
+      case (windowWidth > windowWidth_1279):
+        setIsMoviesCounter(moviesCounter_16);
+        setIsQtyAddMovies(qtyAddMovies_4);
         break;
-      case (windowWidth > 989):
-        setIsMoviesCounter(12);
-        setIsQtyAddMovies(3);
+      case (windowWidth > windowWidth_989):
+        setIsMoviesCounter(moviesCounter_12);
+        setIsQtyAddMovies(qtyAddMovies_3);
         break;
-      case (windowWidth > 629):
-        setIsMoviesCounter(8);
-        setIsQtyAddMovies(2);
+      case (windowWidth > windowWidth_629):
+        setIsMoviesCounter(moviesCounter_8);
+        setIsQtyAddMovies(qtyAddMovies_2);
         break;
       default:
-        setIsMoviesCounter(5);
-        setIsQtyAddMovies(2);
+        setIsMoviesCounter(moviesCounter_5);
+        setIsQtyAddMovies(qtyAddMovies_2);
     }
   };
 

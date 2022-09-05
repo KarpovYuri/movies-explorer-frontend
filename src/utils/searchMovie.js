@@ -1,10 +1,12 @@
+import { maxLengthShortFilm } from './config';
+
 export const searchMovie = () => {
   const movieDataBase = JSON.parse(localStorage.getItem('movieDataBase'));
   const searchText = localStorage.getItem('searchText').toLowerCase();
   const shortMovieSwitch = localStorage.getItem('shortMovieSwitch');
 
   const foundMovies = movieDataBase.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText) >= 0);
-  if (shortMovieSwitch === 'true') return foundMovies.filter((movie) => movie.duration < 40);
+  if (shortMovieSwitch === 'true') return foundMovies.filter((movie) => movie.duration < maxLengthShortFilm);
   else return foundMovies;
 };
 
@@ -14,6 +16,6 @@ export const searchSavedMovie = (movie) => {
 
   const foundMovies = movie.filter((movie) => movie.nameRU.toLowerCase().indexOf(savedMovieSearchText) >= 0);
   if (shortMovieSwitch === true || shortMovieSwitch === 'true') {
-    return foundMovies.filter((movie) => movie.duration < 40);
+    return foundMovies.filter((movie) => movie.duration < maxLengthShortFilm);
   } else return foundMovies;
 };

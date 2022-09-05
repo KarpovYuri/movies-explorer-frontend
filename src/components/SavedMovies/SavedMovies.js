@@ -9,6 +9,7 @@ import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 
 import { searchSavedMovie } from '../../utils/searchMovie';
+import { notFoundMessage } from '../../utils/constants'
 
 function SavedMovies({ onClickDeleteMovie, isLogged }) {
 
@@ -24,7 +25,7 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
     if (foundMovies.length === 0) {
       setIsRender(false);
       setIsPreloader(false);
-      setIsResponseMessage('Ничего не найдено.');
+      setIsResponseMessage(notFoundMessage);
     }
     else {
       setIsRender(true);

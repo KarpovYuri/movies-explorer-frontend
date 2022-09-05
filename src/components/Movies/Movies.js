@@ -9,6 +9,10 @@ import './Movies.css';
 
 import moviesApi from '../../utils/MoviesApi';
 import { searchMovie } from '../../utils/searchMovie';
+import {
+  notFoundMessage,
+  requestErrorMessage,
+} from '../../utils/constants'
 
 function Movies({ onClickSaveMovie, isLogged }) {
 
@@ -21,7 +25,7 @@ function Movies({ onClickSaveMovie, isLogged }) {
     setIsPreloader(false);
     const foundMovies = searchMovie();
     if (foundMovies.length === 0) {
-      setIsResponseMessage('Ничего не найдено.');
+      setIsResponseMessage(notFoundMessage);
       setIsRender(false);
     }
     else {
@@ -42,9 +46,7 @@ function Movies({ onClickSaveMovie, isLogged }) {
         })
         .catch(() => {
           setIsPreloader(false);
-          setIsResponseMessage(`Во время запроса произошла ошибка.
-          Возможно, проблема с соединением или сервер недоступен.
-          Подождите немного и попробуйте ещё раз.`);
+          setIsResponseMessage(requestErrorMessage);
         });
     } else renderMovies();
   };

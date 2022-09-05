@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
+import { validationMessage } from '../../utils/constants'
+
 function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) {
 
   const [isSearchValue, setIsSearchValue] = useState('');
@@ -14,7 +16,7 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) 
 
   function onSubmitSearch(evt) {
     evt.preventDefault();
-    if (isSearchValue === '') setIsValidationError('Заполните это поле.');
+    if (isSearchValue === '') setIsValidationError(validationMessage);
     else onSubmitSearchMovies(isSearchValue, isShortSwitch);
   };
 

@@ -14,6 +14,19 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import './App.css';
 
 import Popup from '../Popup/Popup';
+import { messageDisplayTime } from '../../utils/config';
+import {
+  successfulRegistration,
+  successfullyUserUpdated,
+  movieNotDeleted,
+  movieNotSaved,
+  badRequestErrorCode,
+  authErrorCode,
+  authErrorMessage,
+  conflictErrorCode,
+  conflictErrorMessage,
+  serverErrorMessage,
+} from '../../utils/constants'
 
 function App() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -24,7 +37,7 @@ function App() {
   const [isCurrentMovies, setIsCurrentMovies] = useState([]);
 
   function removeResponseMessage() {
-    setTimeout(() => setIsResponseMessage(''), 3000);
+    setTimeout(() => setIsResponseMessage(''), messageDisplayTime);
   }
 
   function closePopup() {
@@ -40,14 +53,14 @@ function App() {
   function onRegister(userData) {
     authApi.registerUser(userData)
       .then(() => {
-        openPopup('Регистрация прошла успешно!');
+        openPopup(successfulRegistration);
         delete userData.name;
         onLogin(userData);
       })
       .catch((error) => {
-        if (error === 409) {
-          setIsResponseMessage('Пользователем с данным email уже зарегистрирован.');
-        } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        if (error === conflictErrorCode) {
+          setIsResponseMessage(conflictErrorMessage);
+        } else setIsResponseMessage(serverErrorMessage);
         removeResponseMessage();
       });
   };
@@ -61,9 +74,9 @@ function App() {
         };
       })
       .catch((error) => {
-        if (error === 401) {
-          setIsResponseMessage('Неверная почта или пароль.');
-        } else setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        if (error === authErrorCode) {
+          setIsResponseMessage(authErrorMessage);
+        } else setIsResponseMessage(serverErrorMessage);
         removeResponseMessage();
       });
   };
@@ -76,14 +89,14 @@ function App() {
         setIsCurrentUser({});
         setIsCurrentMovies([]);
       })
-      .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'));
+      .catch(() => openPopup(serverErrorMessage));
   }
 
   function onUpdateUser(userData) {
     mainApi.addUserInfo(userData)
-      .then(() => { openPopup('Данные успешно обновлены.') })
+      .then(() => { openPopup(successfullyUserUpdated) })
       .catch(() => {
-        setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        setIsResponseMessage(serverErrorMessage);
         removeResponseMessage();
       });
   };
@@ -99,7 +112,7 @@ function App() {
               .then((savedMovies) => setIsCurrentMovies(savedMovies));
           }
         })
-        .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'))
+        .catch(() => openPopup(serverErrorMessage))
     }
   }, []);
 
@@ -127,8 +140,8 @@ function App() {
         if (result._id) setIsCurrentMovies((prev) => prev.filter((item) => item._id !== id));
       })
       .catch((error) => {
-        if (error === 400) openPopup('Что-то пошло не так! Фильм не может быть удален.');
-        else openPopup('Что-то пошло не так! Попробуйте ещё раз.');
+        if (error === badRequestErrorCode) openPopup(movieNotDeleted);
+        else openPopup(serverErrorMessage);
       });
 
   };
@@ -152,8 +165,8 @@ function App() {
         if (result._id) setIsCurrentMovies((prev) => [...prev, result]);
       })
       .catch((error) => {
-        if (error === 400) openPopup('Что-то пошло не так! Фильм не может быть сохранён.');
-        else openPopup('Что-то пошло не так! Попробуйте ещё раз.');
+        if (error === badRequestErrorCode) openPopup(movieNotSaved);
+        else openPopup(serverErrorMessage);
       });
   };
 
