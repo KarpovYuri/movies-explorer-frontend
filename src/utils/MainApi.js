@@ -15,7 +15,7 @@ class MainApi {
 
   // Запрос данных профиля
   getUserInfo() {
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       credentials: 'include',
     })
       .then((result) => this._handlingResponse(result));
@@ -37,10 +37,7 @@ class MainApi {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: userData.name,
-        about: userData.about
-      })
+      body: JSON.stringify(userData)
     })
       .then((result) => this._handlingResponse(result));
   }

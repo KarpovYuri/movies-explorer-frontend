@@ -19,7 +19,7 @@
 }
 
 .line_place_profile {
-  margin: 16px 0 0;
+  margin: 3px 0 0;
 }
 
 @media (max-width: 576px) {
@@ -40,6 +40,6 @@
   }
 
   .line_place_profile {
-    margin-top: 16px;
+    margin-top: 3px;
   }
 }

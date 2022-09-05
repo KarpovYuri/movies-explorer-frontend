@@ -11,7 +11,6 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 import Popup from '../Popup/Popup';
@@ -25,7 +24,7 @@ function App() {
   const [isCurrentMovies, setIsCurrentMovies] = useState([]);
 
   function removeResponseMessage() {
-    setTimeout(() => setIsResponseMessage(''), 5000);
+    setTimeout(() => setIsResponseMessage(''), 3000);
   }
 
   function closePopup() {
@@ -59,12 +58,6 @@ function App() {
         if (result._id) {
           localStorage.setItem('_id', result._id);
           setIsLogged(true);
-          mainApi.getSavedMovies()
-            .then((savedMovies) => setIsCurrentMovies(savedMovies))
-            .catch((error) => {
-              if (error === 404) openPopup('Вы еще не сохранили ни одного фильма. Начните поиск.')
-              else openPopup('Что-то пошло не так! Попробуйте ещё раз.');
-            });
         };
       })
       .catch((error) => {
@@ -86,6 +79,15 @@ function App() {
       .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'));
   }
 
+  function onUpdateUser(userData) {
+    mainApi.addUserInfo(userData)
+      .then(() => { openPopup('Данные успешно обновлены.') })
+      .catch(() => {
+        setIsResponseMessage('Что-то пошло не так! Попробуйте ещё раз.');
+        removeResponseMessage();
+      });
+  };
+
   // Проверка токена и авторизация пользователя
   useEffect(() => {
     if (localStorage.getItem('_id')) {
@@ -100,6 +102,24 @@ function App() {
         .catch(() => openPopup('Что-то пошло не так! Попробуйте ещё раз.'))
     }
   }, []);
+
+  // Получение данных текущего пользователя
+  useEffect(() => {
+    if (isLogged) {
+      mainApi.getUserInfo()
+        .then((userData) => setIsCurrentUser(userData))
+        .catch(error => console.log(error));
+    }
+  }, [isLogged]);
+
+  // Получение сохраненных фильмов
+  useEffect(() => {
+    if (isLogged) {
+      mainApi.getSavedMovies()
+        .then((savedMovies) => setIsCurrentMovies(savedMovies))
+        .catch(error => console.log(error));
+    }
+  }, [isLogged]);
 
   function onClickDeleteMovie(id) {
     mainApi.deleteMovie(id)
@@ -156,7 +176,12 @@ function App() {
               />
             } />
             <Route path='/profile' element={
-              <Profile onLogout={onLogout} isLogged={isLogged} />
+              <Profile
+                onLogout={onLogout}
+                isLogged={isLogged}
+                onSubmitForm={onUpdateUser}
+                isResponseMessage={isResponseMessage}
+              />
             }
             />
             <Route

@@ -15,7 +15,7 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
   const savedMovies = useContext(CurrentSavedMoviesContext);
   const [isPreloader, setIsPreloader] = useState(false);
   const [isRender, setIsRender] = useState(false);
-  const [isFoundMovies, setIsFoundMovies] = useState(savedMovies);
+  const [isFoundMovies, setIsFoundMovies] = useState([]);
   const [isResponseMessage, setIsResponseMessage] = useState('');
 
   function renderMovies() {
