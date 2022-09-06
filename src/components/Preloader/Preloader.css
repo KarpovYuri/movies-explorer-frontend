@@ -53,6 +53,13 @@
   box-sizing: border-box;
 }
 
+.preloader__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .preloader__container {
   width: 100px;
   height: 100px;

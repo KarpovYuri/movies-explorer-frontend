@@ -68,6 +68,7 @@ class MainApi {
 
 const mainApi = new MainApi({
   baseUrl: 'https://api.movies.project.nomoredomains.sbs',
+  // baseUrl: 'http://localhost:3000',
 });
 
 export default mainApi;

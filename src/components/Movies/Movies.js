@@ -10,8 +10,8 @@ import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
 import { searchMovie } from '../../utils/searchMovie';
 import {
-  notFoundMessage,
-  requestErrorMessage,
+  NOT_FOUND_MESSAGE,
+  REQUEST_ERROR_MESSAGE,
 } from '../../utils/constants'
 
 function Movies({ onClickSaveMovie, isLogged }) {
@@ -25,7 +25,7 @@ function Movies({ onClickSaveMovie, isLogged }) {
     setIsPreloader(false);
     const foundMovies = searchMovie();
     if (foundMovies.length === 0) {
-      setIsResponseMessage(notFoundMessage);
+      setIsResponseMessage(NOT_FOUND_MESSAGE);
       setIsRender(false);
     }
     else {
@@ -46,7 +46,7 @@ function Movies({ onClickSaveMovie, isLogged }) {
         })
         .catch(() => {
           setIsPreloader(false);
-          setIsResponseMessage(requestErrorMessage);
+          setIsResponseMessage(REQUEST_ERROR_MESSAGE);
         });
     } else renderMovies();
   };

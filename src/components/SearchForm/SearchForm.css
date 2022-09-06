@@ -72,6 +72,11 @@
   cursor: pointer;
 }
 
+.search__button_disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
 .search__checkbox-wrapper {
   display: flex;
   align-items: center;

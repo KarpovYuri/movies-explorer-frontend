@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useFormAndValidation from '../../hooks/useFormAndValidation'
 import './Form.css';
 
 function Form({
@@ -11,11 +11,23 @@ function Form({
   isResponseMessage,
 }) {
 
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
+
+  function handleChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage });
+    setIsValid(target.closest("form").checkValidity());
+  };
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onSubmitForm(values);
+    setIsValid(false);
   }
 
   return (
@@ -82,7 +94,7 @@ function Form({
       <div className='form__response-error'>{isResponseMessage}</div>
       <button
         type='submit'
-        className={`form__btn ${isValid ? 'hover-btn' : 'profile__btn_disable'}`}
+        className={`form__btn ${(isValid) ? 'hover-btn' : 'profile__btn_disable'}`}
         disabled={!isValid}
       >
         {button}

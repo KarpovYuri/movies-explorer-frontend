@@ -1,31 +1,33 @@
-const messageDisplayTime = 3000;
+const MESSAGE_DISPLAY_TIME = 3000;
 
-const windowWidth_1279 = 1279;
-const windowWidth_989 = 989;
-const windowWidth_629 = 629;
+const WINDOW_WIDTH_1279 = 1279;
+const WINDOW_WIDTH_989 = 989;
+const WINDOW_WIDTH_629 = 629;
 
-const moviesCounter_16 = 16;
-const moviesCounter_12 = 12;
-const moviesCounter_8 = 8;
-const moviesCounter_5 = 5;
+const QTY_MOVIES_WIDTH_MORE_1279 = 16;
+const QTY_MOVIES_WIDTH_MORE_989 = 12;
+const QTY_MOVIES_WIDTH_MORE_629 = 8;
+const QTY_MOVIES_WIDTH_MOBILE = 5;
 
-const qtyAddMovies_4 = 4;
-const qtyAddMovies_3 = 3;
-const qtyAddMovies_2 = 2;
+const QTY_ADD_MOVIES_WIDTH_MORE_1279 = 4;
+const QTY_ADD_MOVIES_WIDTH_MORE_989 = 3;
+const QTY_ADD_MOVIES_WIDTH_MORE_629 = 2;
+const QTY_ADD_MOVIES_WIDTH_MORE_MOBILE = 2;
 
-const maxLengthShortFilm = 40;
+const MAX_LENGTH_SHORT_FILM = 40;
 
 module.exports = {
-  messageDisplayTime,
-  windowWidth_1279,
-  windowWidth_989,
-  windowWidth_629,
-  moviesCounter_16,
-  moviesCounter_12,
-  moviesCounter_8,
-  moviesCounter_5,
-  qtyAddMovies_4,
-  qtyAddMovies_3,
-  qtyAddMovies_2,
-  maxLengthShortFilm,
+  MESSAGE_DISPLAY_TIME,
+  WINDOW_WIDTH_1279,
+  WINDOW_WIDTH_989,
+  WINDOW_WIDTH_629,
+  QTY_MOVIES_WIDTH_MORE_1279,
+  QTY_MOVIES_WIDTH_MORE_989,
+  QTY_MOVIES_WIDTH_MORE_629,
+  QTY_MOVIES_WIDTH_MOBILE,
+  QTY_ADD_MOVIES_WIDTH_MORE_1279,
+  QTY_ADD_MOVIES_WIDTH_MORE_989,
+  QTY_ADD_MOVIES_WIDTH_MORE_629,
+  QTY_ADD_MOVIES_WIDTH_MORE_MOBILE,
+  MAX_LENGTH_SHORT_FILM,
 };

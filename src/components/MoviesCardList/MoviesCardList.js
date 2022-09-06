@@ -4,16 +4,17 @@ import More from './More/More';
 import './MoviesCardList.css';
 
 import {
-  windowWidth_1279,
-  windowWidth_989,
-  windowWidth_629,
-  moviesCounter_16,
-  moviesCounter_12,
-  moviesCounter_8,
-  moviesCounter_5,
-  qtyAddMovies_4,
-  qtyAddMovies_3,
-  qtyAddMovies_2,
+  WINDOW_WIDTH_1279,
+  WINDOW_WIDTH_989,
+  WINDOW_WIDTH_629,
+  QTY_MOVIES_WIDTH_MORE_1279,
+  QTY_MOVIES_WIDTH_MORE_989,
+  QTY_MOVIES_WIDTH_MORE_629,
+  QTY_MOVIES_WIDTH_MOBILE,
+  QTY_ADD_MOVIES_WIDTH_MORE_1279,
+  QTY_ADD_MOVIES_WIDTH_MORE_989,
+  QTY_ADD_MOVIES_WIDTH_MORE_629,
+  QTY_ADD_MOVIES_WIDTH_MORE_MOBILE,
 } from '../../utils/config';
 
 function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
@@ -23,21 +24,21 @@ function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   function setNumberMovies(windowWidth) {
     switch (true) {
-      case (windowWidth > windowWidth_1279):
-        setIsMoviesCounter(moviesCounter_16);
-        setIsQtyAddMovies(qtyAddMovies_4);
+      case (windowWidth > WINDOW_WIDTH_1279):
+        setIsMoviesCounter(QTY_MOVIES_WIDTH_MORE_1279);
+        setIsQtyAddMovies(QTY_ADD_MOVIES_WIDTH_MORE_1279);
         break;
-      case (windowWidth > windowWidth_989):
-        setIsMoviesCounter(moviesCounter_12);
-        setIsQtyAddMovies(qtyAddMovies_3);
+      case (windowWidth > WINDOW_WIDTH_989):
+        setIsMoviesCounter(QTY_MOVIES_WIDTH_MORE_989);
+        setIsQtyAddMovies(QTY_ADD_MOVIES_WIDTH_MORE_989);
         break;
-      case (windowWidth > windowWidth_629):
-        setIsMoviesCounter(moviesCounter_8);
-        setIsQtyAddMovies(qtyAddMovies_2);
+      case (windowWidth > WINDOW_WIDTH_629):
+        setIsMoviesCounter(QTY_MOVIES_WIDTH_MORE_629);
+        setIsQtyAddMovies(QTY_ADD_MOVIES_WIDTH_MORE_629);
         break;
       default:
-        setIsMoviesCounter(moviesCounter_5);
-        setIsQtyAddMovies(qtyAddMovies_2);
+        setIsMoviesCounter(QTY_MOVIES_WIDTH_MOBILE);
+        setIsQtyAddMovies(QTY_ADD_MOVIES_WIDTH_MORE_MOBILE);
     }
   };
 
@@ -47,8 +48,7 @@ function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   // Функция уменьшения частоты Resize
   function slowDownResize(callback) {
-    let blockedCall
-      = false;
+    let blockedCall = false;
     return function () {
       if (blockedCall) return;
       const context = this;
@@ -63,9 +63,10 @@ function MoviesCardList({ movies, displayOption, onClickMovieBtn }) {
 
   useEffect(() => {
     setNumberMovies(window.innerWidth);
-    window.addEventListener('resize', slowDownResize((evt) => {
-      setNumberMovies(evt.currentTarget.innerWidth);
-    }));
+    window.addEventListener('resize',
+      window.fn = slowDownResize((evt) => setNumberMovies(evt.currentTarget.innerWidth))
+    );
+    return () => window.removeEventListener('resize', window.fn);
   }, []);
 
   return (

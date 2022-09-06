@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
-import { validationMessage } from '../../utils/constants'
-
 function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) {
 
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortSwitch, setIsShortSwitch] = useState(false);
   const [isValidationError, setIsValidationError] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
   function handleChangeSearch(evt) {
     setIsValidationError(evt.target.validationMessage);
     setIsSearchValue(evt.target.value);
+    setIsValid(evt.target.closest("form").checkValidity());
   };
 
   function onSubmitSearch(evt) {
     evt.preventDefault();
-    if (isSearchValue === '') setIsValidationError(validationMessage);
-    else onSubmitSearchMovies(isSearchValue, isShortSwitch);
+    if (!isValid) return;
+    onSubmitSearchMovies(isSearchValue, isShortSwitch);
+    setIsValid(false);
   };
 
   function handleChangeShortSwitch() {
@@ -34,8 +35,9 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) 
         shortMovieSwitch === 'true' ? setIsShortSwitch(true) : setIsShortSwitch(false);
       }
     } else {
-      const shortSavedMovieSwitch = localStorage.getItem('shortSavedMovieSwitch');
-      shortSavedMovieSwitch === 'true' ? setIsShortSwitch(true) : setIsShortSwitch(false);
+      localStorage.setItem('savedMovieSearchText', '');
+      localStorage.setItem('shortSavedMovieSwitch', 'false');
+      setIsShortSwitch(false);
     }
   }, [displayOption]);
 
@@ -57,7 +59,7 @@ function SearchForm({ onSubmitSearchMovies, onClickShortMovie, displayOption }) 
             onChange={handleChangeSearch}
           />
           <div
-            className='search__button hover-btn'
+            className={`search__button ${isValid ? 'hover-btn' : 'search__button_disabled'}`}
             onClick={onSubmitSearch}
           >
           </div>

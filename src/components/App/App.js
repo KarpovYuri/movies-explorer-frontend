@@ -11,26 +11,27 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Preloader from '../Preloader/Preloader';
 import './App.css';
 
 import Popup from '../Popup/Popup';
-import { messageDisplayTime } from '../../utils/config';
+import { MESSAGE_DISPLAY_TIME } from '../../utils/config';
 import {
-  successfulRegistration,
-  successfullyUserUpdated,
-  movieNotDeleted,
-  movieNotSaved,
-  badRequestErrorCode,
-  authErrorCode,
-  authErrorMessage,
-  conflictErrorCode,
-  conflictErrorMessage,
-  serverErrorMessage,
-  startSearchMessage,
-} from '../../utils/constants'
+  SUCCESSFUL_REGISTRATION_MESSAGE,
+  SUCCESSFUL_USER_UPDATED_MESSAGE,
+  MOVIE_NOT_DELETED_MESSAGE,
+  MOVIE_NOT_SAVED_MESSAGE,
+  BAD_REQUEST_ERROR_CODE,
+  AUTH_ERROR_CODE,
+  AUTH_ERROR_MESSAGE,
+  CONFLICT_ERROR_CODE,
+  CONFLICT_ERROR_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+} from '../../utils/constants';
 
 function App() {
+  const [isRender, setIsRender] = useState(false);
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isResponseMessage, setIsResponseMessage] = useState('');
   const [isPopupMessage, setIsPopupMessage] = useState('');
@@ -38,8 +39,19 @@ function App() {
   const [isCurrentUser, setIsCurrentUser] = useState({});
   const [isCurrentMovies, setIsCurrentMovies] = useState([]);
 
+  // Проверка токена и авторизация пользователя
+  useEffect(() => {
+    if (localStorage.getItem('_id')) {
+      authApi.checkToken()
+        .then(data => {
+          if (data) setIsLogged(true);
+        })
+        .catch(() => openPopup(SERVER_ERROR_MESSAGE))
+    }
+  }, []);
+
   function removeResponseMessage() {
-    setTimeout(() => setIsResponseMessage(''), messageDisplayTime);
+    setTimeout(() => setIsResponseMessage(''), MESSAGE_DISPLAY_TIME);
   }
 
   function closePopup() {
@@ -55,14 +67,14 @@ function App() {
   function onRegister(userData) {
     authApi.registerUser(userData)
       .then(() => {
-        openPopup(successfulRegistration);
+        openPopup(SUCCESSFUL_REGISTRATION_MESSAGE);
         delete userData.name;
         onLogin(userData);
       })
       .catch((error) => {
-        if (error === conflictErrorCode) {
-          setIsResponseMessage(conflictErrorMessage);
-        } else setIsResponseMessage(serverErrorMessage);
+        if (error === CONFLICT_ERROR_CODE) {
+          setIsResponseMessage(CONFLICT_ERROR_MESSAGE);
+        } else setIsResponseMessage(SERVER_ERROR_MESSAGE);
         removeResponseMessage();
       });
   };
@@ -76,9 +88,9 @@ function App() {
         };
       })
       .catch((error) => {
-        if (error === authErrorCode) {
-          setIsResponseMessage(authErrorMessage);
-        } else setIsResponseMessage(serverErrorMessage);
+        if (error === AUTH_ERROR_CODE) {
+          setIsResponseMessage(AUTH_ERROR_MESSAGE);
+        } else setIsResponseMessage(SERVER_ERROR_MESSAGE);
         removeResponseMessage();
       });
   };
@@ -91,50 +103,17 @@ function App() {
         setIsCurrentUser({});
         setIsCurrentMovies([]);
       })
-      .catch(() => openPopup(serverErrorMessage));
+      .catch(() => openPopup(SERVER_ERROR_MESSAGE));
   }
 
   function onUpdateUser(userData) {
     mainApi.addUserInfo(userData)
-      .then(() => { openPopup(successfullyUserUpdated) })
+      .then(() => { openPopup(SUCCESSFUL_USER_UPDATED_MESSAGE) })
       .catch(() => {
-        setIsResponseMessage(serverErrorMessage);
+        setIsResponseMessage(SERVER_ERROR_MESSAGE);
         removeResponseMessage();
       });
   };
-
-  // Проверка токена и авторизация пользователя
-  useEffect(() => {
-    if (localStorage.getItem('_id')) {
-      authApi.checkToken()
-        .then(data => {
-          if (data) {
-            setIsLogged(true);
-            mainApi.getSavedMovies()
-              .then((savedMovies) => setIsCurrentMovies(savedMovies));
-          }
-        })
-        .catch(() => openPopup(serverErrorMessage))
-    }
-  }, []);
-
-  // Получение данных текущего пользователя
-  useEffect(() => {
-    if (isLogged) {
-      mainApi.getUserInfo()
-        .then((userData) => setIsCurrentUser(userData))
-        .catch(error => console.log(error));
-    }
-  }, [isLogged]);
-
-  // Получение сохраненных фильмов
-  useEffect(() => {
-    if (isLogged) {
-      mainApi.getSavedMovies()
-        .then((savedMovies) => setIsCurrentMovies(savedMovies))
-        .catch(error => openPopup(startSearchMessage));
-    }
-  }, [isLogged]);
 
   function onClickDeleteMovie(id) {
     mainApi.deleteMovie(id)
@@ -142,8 +121,8 @@ function App() {
         if (result._id) setIsCurrentMovies((prev) => prev.filter((item) => item._id !== id));
       })
       .catch((error) => {
-        if (error === badRequestErrorCode) openPopup(movieNotDeleted);
-        else openPopup(serverErrorMessage);
+        if (error === BAD_REQUEST_ERROR_CODE) openPopup(MOVIE_NOT_DELETED_MESSAGE);
+        else openPopup(SERVER_ERROR_MESSAGE);
       });
 
   };
@@ -167,10 +146,39 @@ function App() {
         if (result._id) setIsCurrentMovies((prev) => [...prev, result]);
       })
       .catch((error) => {
-        if (error === badRequestErrorCode) openPopup(movieNotSaved);
-        else openPopup(serverErrorMessage);
+        if (error === BAD_REQUEST_ERROR_CODE) openPopup(MOVIE_NOT_SAVED_MESSAGE);
+        else openPopup(SERVER_ERROR_MESSAGE);
       });
   };
+
+  // Получение данных текущего пользователя
+  useEffect(() => {
+    if (isLogged) {
+      mainApi.getUserInfo()
+        .then((userData) => setIsCurrentUser(userData))
+        .catch(error => console.log(error));
+    }
+  }, [isLogged]);
+
+  // Получение сохраненных фильмов
+  useEffect(() => {
+    if (isLogged) {
+      mainApi.getSavedMovies()
+        .then((savedMovies) => setIsCurrentMovies(savedMovies))
+        .catch(error => console.log(error));
+    }
+  }, [isLogged]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsRender(true), 1000);
+    return () => clearTimeout(timeout);
+  }, [isRender])
+
+  if (!isRender) return (
+    <div className='preloader__wrapper'>
+      <Preloader />
+    </div>
+  );
 
   return (
     <CurrentUserContext.Provider value={isCurrentUser}>
@@ -205,7 +213,7 @@ function App() {
               path='/signin'
               element={
                 isLogged ? (
-                  <Navigate to='/movies' />
+                  <Navigate to='/' />
                 ) : (
                   <Login
                     onLogin={onLogin}
@@ -218,7 +226,7 @@ function App() {
               path='/signup'
               element={
                 isLogged
-                  ? <Navigate to='/movies' />
+                  ? <Navigate to='/' />
                   : <Register
                     onRegister={onRegister}
                     isResponseMessage={isResponseMessage}

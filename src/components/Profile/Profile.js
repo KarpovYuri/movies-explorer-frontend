@@ -1,7 +1,6 @@
 import { React } from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import useFormAndValidation from '../../hooks/useFormAndValidation'
 import Header from '../Header/Header';
 import './Profile.css';
 
@@ -13,9 +12,7 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isUserData, setIsUserData] = useState({});
   const [isErorrMessage, setIsErorrMessage] = useState({});
-  const [isValid, setIsValid] = useState(true);
-
-  const { values, errors } = useFormAndValidation();
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -26,14 +23,22 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     onSubmitForm(isUserData);
+    currentUser.name = isUserData.name;
+    currentUser.email = isUserData.email;
     setIsDisabled(!isDisabled);
+    setIsValid(false);
+
   }
 
   useEffect(() => {
     if (isErorrMessage.name || isErorrMessage.email) {
       setIsValid(false);
+    } else if (currentUser.name === isUserData.name &&
+      currentUser.email === isUserData.email) {
+      setIsValid(false);
     } else setIsValid(true);
-  }, [isErorrMessage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isErorrMessage, isUserData]);
 
 
   useEffect(() => {
@@ -59,7 +64,7 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
               name='name'
               placeholder='Имя'
               defaultValue={isUserData.name}
-              values={values.name}
+              values={isUserData.name}
               required
               pattern='^[A-Za-zА-Яа-яЁё /s -]+$'
               minLength={2}
@@ -69,7 +74,7 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
               onChange={handleChange}
             />
           </div>
-          <div className='profile__input-error' >{errors.name}</div>
+          <div className='profile__input-error' >{isErorrMessage.name}</div>
           <hr className='line line_place_profile'></hr>
           <div className='profile__field'>
             <label htmlFor='email' className='profile__label'>E-mail</label>
@@ -80,7 +85,7 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
               name='email'
               placeholder='E-mail'
               defaultValue={isUserData.email}
-              values={values.email}
+              values={isUserData.email}
               required
               pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
               disabled={isDisabled}
@@ -88,7 +93,7 @@ function Profile({ onLogout, isLogged, onSubmitForm, isResponseMessage }) {
               onChange={handleChange}
             />
           </div>
-          <div className='profile__input-error profile__input-error_email' >{errors.email}</div>
+          <div className='profile__input-error profile__input-error_email' >{isErorrMessage.email}</div>
           <div className='profile__error'>{isResponseMessage}</div>
           {isDisabled
             ?

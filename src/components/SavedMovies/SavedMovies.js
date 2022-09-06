@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 
 import { searchSavedMovie } from '../../utils/searchMovie';
-import { notFoundMessage } from '../../utils/constants'
+import { NOT_FOUND_MESSAGE } from '../../utils/constants'
 
 function SavedMovies({ onClickDeleteMovie, isLogged }) {
 
@@ -25,7 +25,7 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
     if (foundMovies.length === 0) {
       setIsRender(false);
       setIsPreloader(false);
-      setIsResponseMessage(notFoundMessage);
+      setIsResponseMessage(NOT_FOUND_MESSAGE);
     }
     else {
       setIsRender(true);
@@ -46,7 +46,6 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
   };
 
   useEffect(() => {
-    localStorage.setItem('savedMovieSearchText', '');
     setIsPreloader(true);
     renderMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
