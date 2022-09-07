@@ -66,8 +66,20 @@
   transition: opacity 0.25s ease;
 }
 
+.profile__input-error {
+  min-height: 13px;
+  font-size: 9px;
+  line-height: 13px;
+  color: var(--error-color);
+  text-align: right;
+}
+
+.profile__input-error_email {
+  min-height: 26px;
+}
+
 .profile__edit {
-  margin: 202px auto 0;
+  margin: 36px auto 0;
   text-align: center;
   cursor: pointer;
   font-size: 13px;
@@ -85,12 +97,13 @@
   line-height: 16px;
   color: var(--error-color);
   letter-spacing: normal;
+  cursor: pointer;
 }
 
 .profile__save-btn {
   height: 45px;
   width: 410px;
-  margin: 223px 0 0;
+  margin: 20px 0 0;
   border: none;
   color: var(--text-main-color);
   background-color: var(--button-second-bg-color);
@@ -102,7 +115,6 @@
 }
 
 .profile__save-btn_disable {
-  margin-top: 20px;
   background-color: var(--second-bg-color);
   color: var(--third-color);
   cursor: default;
@@ -110,7 +122,8 @@
 
 .profile__error {
   display: block;
-  margin: 189px auto 0;
+  min-height: 13px;
+  margin: 164px auto 0;
   text-align: center;
   color: var(--error-color);
   font-weight: 400;
@@ -127,9 +140,6 @@
     margin-top: 96px;
   }
 
-  .profile__edit {
-    margin-top: 210px;
-  }
 }
 
 @media screen and (max-width: 576px) {

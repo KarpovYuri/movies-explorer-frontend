@@ -1,40 +1,62 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Form.css';
 
-function Form({ title, type, button, text }) {
+function Form({
+  title,
+  pageType,
+  button,
+  text,
+  onSubmitForm,
+  isResponseMessage,
+}) {
 
-  const [isErrorMessage, setIsErrorMessage] = useState({ name: '', email: '', password: '' });
-  const [isInputValue, setIsInputValue] = useState({ name: '', email: '', password: '' });
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
-  const handleChangeValue = (evt) => {
-    const { name, value } = evt.target;
-    setIsInputValue((prev) => ({ ...prev, [name]: value }));
-    setIsErrorMessage((prev) => ({ ...prev, [name]: evt.target.validationMessage }));
+  function handleChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage });
+    setIsValid(target.closest("form").checkValidity());
   };
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onSubmitForm(values);
+    setIsValid(false);
+  }
+
   return (
-    <form className='form'>
+    <form
+      className='form'
+      onSubmit={handleSubmit}
+      noValidate
+    >
       <Link to='/' className='form__logo hover'></Link>
       <h1 className='form__title'>{title}</h1>
       <fieldset className='form__fieldset'>
-        {type === 'signup' && (
+        {pageType === 'signup' && (
           <div className='form__field'>
             <label htmlFor='name' className='form__label'>Имя</label>
             <input
               type='text'
               id='name'
               name='name'
-              className={`form__input ${isErrorMessage.name ? 'error' : ''}`}
+              className={`form__input ${errors.name && 'error'}`}
               placeholder='Имя'
-              value={isInputValue.name}
+              value={values.name || ''}
               autoComplete='off'
               required
+              pattern='^[A-Za-zА-Яа-яЁё /s -]+$'
               minLength={2}
               maxLength={30}
-              onChange={handleChangeValue}
+              onChange={handleChange}
             />
-            <span className='form__error'>{isErrorMessage.name}</span>
+            <span className='form__input-error'>{errors.name}</span>
           </div>
         )}
         <div className='form__field'>
@@ -43,14 +65,15 @@ function Form({ title, type, button, text }) {
             type='email'
             id='email'
             name='email'
-            className={`form__input ${isErrorMessage.email ? 'error' : ''}`}
+            className={`form__input ${errors.email && 'error'}`}
             placeholder='E-mail'
-            value={isInputValue.email}
+            value={values.email || ''}
             autoComplete='off'
             required
-            onChange={handleChangeValue}
+            pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
+            onChange={handleChange}
           />
-          <span className='form__error'>{isErrorMessage.email}</span>
+          <span className='form__input-error'>{errors.email}</span>
         </div>
         <div className='form__field'>
           <label htmlFor='password' className='form__label'>Пароль</label>
@@ -58,22 +81,29 @@ function Form({ title, type, button, text }) {
             type='password'
             id='password'
             name='password'
-            className={`form__input ${isErrorMessage.password ? 'error' : ''}`}
+            className={`form__input ${errors.password && 'error'}`}
             placeholder='Пароль'
-            value={isInputValue.password}
+            value={values.password || ''}
             autoComplete='off'
             required
-            onChange={handleChangeValue}
+            onChange={handleChange}
           />
-          <span className='form__error'>{isErrorMessage.password}</span>
+          <span className='form__input-error'>{errors.password}</span>
         </div>
       </fieldset>
-      <button type='submit' className='form__btn hover-btn'>{button}</button>
+      <div className='form__response-error'>{isResponseMessage}</div>
+      <button
+        type='submit'
+        className={`form__btn ${(isValid) ? 'hover-btn' : 'profile__btn_disable'}`}
+        disabled={!isValid}
+      >
+        {button}
+      </button>
       <p className='form__link-wrapper'>
         {text}
-        {type === 'signup'
-          ? (<Link className='form__link hover' to='/signin'>Войти</Link>)
-          : (<Link className='form__link hover' to='/signup'>Регистрация</Link>)
+        {pageType === 'signup'
+          ? <Link className='form__link hover' to='/signin'>Войти</Link>
+          : <Link className='form__link hover' to='/signup'>Регистрация</Link>
         }
       </p>
     </form>

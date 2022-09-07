@@ -1,12 +1,14 @@
 import Form from '../Form/Form';
 
-function Register() {
+function Register({ onRegister, isResponseMessage }) {
   return (
     <Form
       title={'Добро пожаловать!'}
-      type={'signup'}
+      pageType={'signup'}
       button={'Зарегистрироваться'}
       text={`Уже зарегистрированы? `}
+      onSubmitForm={onRegister}
+      isResponseMessage={isResponseMessage}
     />
   );
 };
