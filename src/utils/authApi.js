@@ -69,7 +69,7 @@ class AuthApi {
 }
 
 
-const authApi = new AuthApi('https://api.movies.project.nomoredomains.sbs');
-// const authApi = new AuthApi('http://localhost:3000');
+// const authApi = new AuthApi('https://api.movies.project.nomoredomains.sbs');
+const authApi = new AuthApi('http://localhost:3000');
 
 export default authApi;
