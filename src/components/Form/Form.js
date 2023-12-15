@@ -31,7 +31,9 @@ function Form({
 
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
-      <Link to="/" className="form__logo hover"></Link>
+      <Link to="/" className="form__logo hover">
+        Главная
+      </Link>
       <h1 className="form__title">{title}</h1>
       <fieldset className="form__fieldset">
         {pageType === "signup" && (
@@ -102,6 +104,18 @@ function Form({
       >
         {button}
       </button>
+      <p className="form__link-wrapper">
+        {pageType !== "signup" && (
+          <Link
+            className="form__link hover"
+            onClick={() =>
+              onSubmitForm({ email: "test@test.ru", password: "qwerty123" })
+            }
+          >
+            Войти без пароля и регистрации
+          </Link>
+        )}
+      </p>
       <p className="form__link-wrapper">
         {text}
         {pageType === "signup" ? (

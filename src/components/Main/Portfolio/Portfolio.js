@@ -9,7 +9,7 @@ function Portfolio() {
           <a
             className="portfolio__link hover"
             target="_blank"
-            href="https://github.com/Yurick78/how-to-learn"
+            href="https://github.com/KarpovYuri/how-to-learn"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Статичный сайт</p>
@@ -21,7 +21,7 @@ function Portfolio() {
           <a
             className="portfolio__link hover"
             target="_blank"
-            href="https://github.com/Yurick78/russian-travel"
+            href="https://github.com/KarpovYuri/russian-travel"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Адаптивный сайт</p>
@@ -33,7 +33,7 @@ function Portfolio() {
           <a
             className="portfolio__link hover"
             target="_blank"
-            href="https://github.com/Yurick78/react-mesto-api-full"
+            href="https://github.com/KarpovYuri/react-mesto-api-full"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Одностраничное приложение</p>

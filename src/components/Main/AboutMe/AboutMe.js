@@ -10,17 +10,52 @@ function AboutMe() {
       <hr className="line"></hr>
       <div className="about-me__container">
         <div className="about-me__wrapper">
-          <p className="about-me__name">Юрий</p>
-          <p className="about-me__job">Фронтенд-разработчик, 30 лет</p>
+          <p className="about-me__name">Карпов Юрий</p>
+          <p className="about-me__job">Фронтенд-разработчик из Воронежа</p>
           <p className="about-me__description">
-            Я родился и живу в Воронеже, закончил факультет экономики ВГУИТ.
-            Люблю кататься на роликовых коньках и увлекаюсь автозвуком. Год
-            назад прошел отбор в "Яндекс.Практикум" на факультет
-            "Веб-разработки" по программе "Цифровая профессия в подарок".
-            Успешно прошел стажировку в компании "MOVIKA", занимющейся
-            разработкой интерактивного контента.
+            Владею крепкими знаниями Веб-разработки, включая HTML, CSS,
+            JavaScript, TypeScript и Node.js. Опыт работы с бэкенд-фреймворком
+            Express.js. Умею создавать интуитивно понятный и эффективный
+            пользовательский интерфейс, используя фронтенд-фреймворки, такие как
+            React и Vue.
+          </p>
+          <p className="about-me__description">
+            Благодаря своей творческой природе и внимательному отношению к
+            деталям, всегда стремлюсь к созданию привлекательных и
+            функциональных проектов, которые соответствуют потребностям
+            клиентов.
           </p>
           <ul className="about-me__social-links">
+            <li>
+              <a
+                className="about-me__social-link hover"
+                target="_blank"
+                href="https://github.com/KarpovYuri"
+                rel="noreferrer"
+              >
+                Github
+              </a>
+            </li>
+            <li>
+              <a
+                className="about-me__social-link hover"
+                target="_blank"
+                href="https://www.linkedin.com/in/karpov-yuri/"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                className="about-me__social-link hover"
+                target="_blank"
+                href="https://vk.com/karpov_yn"
+                rel="noreferrer"
+              >
+                VK
+              </a>
+            </li>
             <li>
               <a
                 className="about-me__social-link hover"
@@ -29,16 +64,6 @@ function AboutMe() {
                 rel="noreferrer"
               >
                 Facebook
-              </a>
-            </li>
-            <li>
-              <a
-                className="about-me__social-link hover"
-                target="_blank"
-                href="https://github.com/Yurick78"
-                rel="noreferrer"
-              >
-                Github
               </a>
             </li>
           </ul>

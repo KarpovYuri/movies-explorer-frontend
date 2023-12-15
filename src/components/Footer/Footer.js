@@ -8,7 +8,7 @@ function Footer() {
       </h2>
       <hr className="line line_place_footer"></hr>
       <div className="footer__wrapper">
-        <p className="footer__copyright">&copy; 2022</p>
+        <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
         <ul className="footer__links">
           <li className="footer__link-wrapper">
             <a
@@ -24,10 +24,30 @@ function Footer() {
             <a
               className="footer__link hover"
               target="_blank"
-              href="https://github.com/Yurick78"
+              href="https://github.com/KarpovYuri"
               rel="noreferrer"
             >
               Github
+            </a>
+          </li>
+          <li className="footer__link-wrapper">
+            <a
+              className="footer__link hover"
+              target="_blank"
+              href="https://www.linkedin.com/in/karpov-yuri/"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li className="footer__link-wrapper">
+            <a
+              className="footer__link hover"
+              target="_blank"
+              href="https://vk.com/karpov_yn"
+              rel="noreferrer"
+            >
+              VK
             </a>
           </li>
           <li className="footer__link-wrapper">
