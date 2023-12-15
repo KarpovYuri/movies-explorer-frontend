@@ -1,38 +1,40 @@
-import './Footer.css';
+import "./Footer.css";
 
 function Footer() {
   return (
-    <footer className='footer'>
-      <h2 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h2>
-      <hr className='line line_place_footer'></hr>
-      <div className='footer__wrapper'>
-        <p className='footer__copyright'>&copy; 2022</p>
-        <ul className='footer__links'>
-          <li className='footer__link-wrapper'>
+    <footer className="footer">
+      <h2 className="footer__title">
+        Учебный проект Яндекс.Практикум х BeatFilm.
+      </h2>
+      <hr className="line line_place_footer"></hr>
+      <div className="footer__wrapper">
+        <p className="footer__copyright">&copy; 2022</p>
+        <ul className="footer__links">
+          <li className="footer__link-wrapper">
             <a
-              className='footer__link hover'
-              target='_blank'
-              href='https://practicum.yandex.ru/'
+              className="footer__link hover"
+              target="_blank"
+              href="https://practicum.yandex.ru/"
               rel="noreferrer"
             >
               Яндекс.Практикум
             </a>
           </li>
-          <li className='footer__link-wrapper'>
+          <li className="footer__link-wrapper">
             <a
-              className='footer__link hover'
-              target='_blank'
-              href='https://github.com/Yurick78'
+              className="footer__link hover"
+              target="_blank"
+              href="https://github.com/Yurick78"
               rel="noreferrer"
             >
               Github
             </a>
           </li>
-          <li className='footer__link-wrapper'>
+          <li className="footer__link-wrapper">
             <a
-              className='footer__link hover'
-              target='_blank'
-              href='https://www.facebook.com/profile.php?id=100000459328645'
+              className="footer__link hover"
+              target="_blank"
+              href="https://www.facebook.com/profile.php?id=100000459328645"
               rel="noreferrer"
             >
               Facebook
@@ -42,6 +44,6 @@ function Footer() {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

@@ -1,23 +1,22 @@
-import { useState, useContext, useEffect } from 'react';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
-import Header from '../Header/Header';
-import Preloader from '../Preloader/Preloader';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import ResponseSection from '../ResponseSection/ResponseSection';
-import Footer from '../Footer/Footer';
-import './SavedMovies.css';
+import { useState, useContext, useEffect } from "react";
+import { CurrentSavedMoviesContext } from "../../contexts/CurrentSavedMoviesContext";
+import Header from "../Header/Header";
+import Preloader from "../Preloader/Preloader";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import ResponseSection from "../ResponseSection/ResponseSection";
+import Footer from "../Footer/Footer";
+import "./SavedMovies.css";
 
-import { searchSavedMovie } from '../../utils/searchMovie';
-import { NOT_FOUND_MESSAGE } from '../../utils/constants'
+import { searchSavedMovie } from "../../utils/searchMovie";
+import { NOT_FOUND_MESSAGE } from "../../utils/constants";
 
 function SavedMovies({ onClickDeleteMovie, isLogged }) {
-
   const savedMovies = useContext(CurrentSavedMoviesContext);
   const [isPreloader, setIsPreloader] = useState(false);
   const [isRender, setIsRender] = useState(false);
   const [isFoundMovies, setIsFoundMovies] = useState([]);
-  const [isResponseMessage, setIsResponseMessage] = useState('');
+  const [isResponseMessage, setIsResponseMessage] = useState("");
 
   function renderMovies() {
     setIsPreloader(true);
@@ -26,24 +25,23 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
       setIsRender(false);
       setIsPreloader(false);
       setIsResponseMessage(NOT_FOUND_MESSAGE);
-    }
-    else {
+    } else {
       setIsRender(true);
       setIsPreloader(false);
       setIsFoundMovies(foundMovies);
     }
-  };
+  }
 
   function onSubmitSearchMovies(searchText, shortMovieSwitch) {
-    localStorage.setItem('savedMovieSearchText', searchText);
-    localStorage.setItem('shortSavedMovieSwitch', shortMovieSwitch);
+    localStorage.setItem("savedMovieSearchText", searchText);
+    localStorage.setItem("shortSavedMovieSwitch", shortMovieSwitch);
     renderMovies();
-  };
+  }
 
   function onClickShortMovie(shortMovieSwitch) {
-    localStorage.setItem('shortSavedMovieSwitch', shortMovieSwitch);
+    localStorage.setItem("shortSavedMovieSwitch", shortMovieSwitch);
     renderMovies();
-  };
+  }
 
   useEffect(() => {
     setIsPreloader(true);
@@ -56,25 +54,27 @@ function SavedMovies({ onClickDeleteMovie, isLogged }) {
       <Header isLogged={isLogged} />
       <main>
         <SearchForm
-          displayOption={'save'}
+          displayOption={"save"}
           onSubmitSearchMovies={onSubmitSearchMovies}
           onClickShortMovie={onClickShortMovie}
         />
-        {isPreloader ? <Preloader /> :
-          isRender ?
-            <MoviesCardList
-              movies={isFoundMovies}
-              displayOption={'save'}
-              onClickMovieBtn={onClickDeleteMovie}
-            /> :
-            isResponseMessage && <ResponseSection
-              isResponseMessage={isResponseMessage}
-            />
-        }
+        {isPreloader ? (
+          <Preloader />
+        ) : isRender ? (
+          <MoviesCardList
+            movies={isFoundMovies}
+            displayOption={"save"}
+            onClickMovieBtn={onClickDeleteMovie}
+          />
+        ) : (
+          isResponseMessage && (
+            <ResponseSection isResponseMessage={isResponseMessage} />
+          )
+        )}
       </main>
       <Footer />
     </>
   );
-};
+}
 
 export default SavedMovies;

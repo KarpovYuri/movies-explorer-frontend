@@ -4,7 +4,6 @@ class AuthApi {
     this._baseUrl = baseUrl;
   }
 
-
   // Обработка ответа сервера
   _handlingResponse(result) {
     if (result.ok) {
@@ -15,61 +14,52 @@ class AuthApi {
     }
   }
 
-
   // Регистрация пользователя
   registerUser(userData) {
     return fetch(`${this._baseUrl}/signup`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData)
-    })
-      .then(res => this._handlingResponse(res));
+      body: JSON.stringify(userData),
+    }).then((res) => this._handlingResponse(res));
   }
-
 
   // Вход пользователя
   loginUser(userData) {
     return fetch(`${this._baseUrl}/signin`, {
-      method: 'POST',
-      credentials: 'include',
+      method: "POST",
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData)
-    })
-      .then(res => this._handlingResponse(res));
+      body: JSON.stringify(userData),
+    }).then((res) => this._handlingResponse(res));
   }
-
 
   // Выход пользователя
   logoutUser(email) {
     return fetch(`${this._baseUrl}/signout`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-      .then(res => this._handlingResponse(res))
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    }).then((res) => this._handlingResponse(res));
   }
 
   // Проверка токена
   checkToken() {
     return fetch(`${this._baseUrl}/users/me`, {
-      credentials: 'include',
-      method: 'GET',
+      credentials: "include",
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(res => this._handlingResponse(res));
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._handlingResponse(res));
   }
-
 }
 
-
-const authApi = new AuthApi('https://api.movies.project.nomoredomains.sbs');
-// const authApi = new AuthApi('http://localhost:3000');
+// const authApi = new AuthApi('https://api.movies.karaudio.ru');
+const authApi = new AuthApi("http://localhost:3000");
 
 export default authApi;
