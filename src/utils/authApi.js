@@ -60,6 +60,6 @@ class AuthApi {
 }
 
 // const authApi = new AuthApi('https://api.movies.karaudio.ru');
-const authApi = new AuthApi("http://localhost:3000");
+const authApi = new AuthApi("http://localhost:3001");
 
 export default authApi;

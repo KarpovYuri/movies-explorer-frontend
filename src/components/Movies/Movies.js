@@ -60,7 +60,20 @@ function Movies({ onClickSaveMovie, isLogged }) {
       setIsPreloader(true);
       setIsRender(true);
       renderMovies();
+    } else {
+      setIsPreloader(true);
+      moviesApi
+        .getMovies()
+        .then((result) => {
+          localStorage.setItem("movieDataBase", JSON.stringify(result));
+          renderMovies();
+        })
+        .catch(() => {
+          setIsPreloader(false);
+          setIsResponseMessage(REQUEST_ERROR_MESSAGE);
+        });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
