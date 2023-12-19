@@ -12,7 +12,6 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import Preloader from "../Preloader/Preloader";
 import "./App.css";
 
 import Popup from "../Popup/Popup";
@@ -31,11 +30,12 @@ import {
 } from "../../utils/constants";
 
 function App() {
-  const [isRender, setIsRender] = useState(false);
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isResponseMessage, setIsResponseMessage] = useState("");
   const [isPopupMessage, setIsPopupMessage] = useState("");
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(
+    localStorage.getItem("_id") ? true : false
+  );
   const [isCurrentUser, setIsCurrentUser] = useState({});
   const [isCurrentMovies, setIsCurrentMovies] = useState([]);
 
@@ -47,7 +47,10 @@ function App() {
         .then((data) => {
           if (data) setIsLogged(true);
         })
-        .catch(() => openPopup(SERVER_ERROR_MESSAGE));
+        .catch(() => {
+          setIsLogged(false);
+          openPopup(SERVER_ERROR_MESSAGE);
+        });
     }
   }, []);
 
@@ -181,18 +184,6 @@ function App() {
         .catch((error) => console.log(error));
     }
   }, [isLogged]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsRender(true), 1000);
-    return () => clearTimeout(timeout);
-  }, [isRender]);
-
-  if (!isRender)
-    return (
-      <div className="preloader__wrapper">
-        <Preloader />
-      </div>
-    );
 
   return (
     <CurrentUserContext.Provider value={isCurrentUser}>
