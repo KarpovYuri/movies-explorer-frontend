@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { CurrentSavedMoviesContext } from "../../contexts/CurrentSavedMoviesContext";
 import authApi from "../../utils/authApi";
@@ -30,6 +30,7 @@ import {
 } from "../../utils/constants";
 
 function App() {
+  const navigate = useNavigate();
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isResponseMessage, setIsResponseMessage] = useState("");
   const [isPopupMessage, setIsPopupMessage] = useState("");
@@ -91,6 +92,7 @@ function App() {
         if (result._id) {
           localStorage.setItem("_id", result._id);
           setIsLogged(true);
+          navigate("/movies");
         }
       })
       .catch((error) => {
